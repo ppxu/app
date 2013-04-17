@@ -10,40 +10,40 @@ ul {
 	list-style: none;
 	overflow: hidden;
 }
-.page {
+#reader {
 	width: 100%;
 }
-.header {
+#head {
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
 	background-color: #ccc;
 }
-.header a {
+#head a {
 	float: left;
 	text-indent: 20px;
 	visibility: hidden;
 }
-.header h2 {
+#head h2 {
 	text-align: center;
 	text-indent: -40px;
 }
-.container {
+#content {
 	width: 100%;
 	overflow-x: hidden;
 }
-.container .nav,
-.container .list,
-.container .detail {
+#content #cats,
+#content #list,
+#content #entry {
 	width: 100%;
 	display: none;
 }
-.container .nav li {
+#content #cats li {
 	line-height: 50px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-.container .nav li a {
+#content #cats li a {
 	display: inline-block;
 	height: 100%;
 	font-size: 24px;
@@ -51,16 +51,16 @@ ul {
 	padding-right: 60px;
 	white-space: nowrap;
 }
-.container .nav li.catelog a {
+#content #cats li.catelog a {
 	background-color: #d9edf7;
 }
-.container .nav li.today a {
+#content #cats li.today a {
 	background-color: #dff0d8;
 }
-.container .nav li.star a {
+#content #cats li.star a {
 	background-color: #f2dede;
 }
-.container .nav li span {
+#content #cats li span {
 	display: inline-block;
 }
 .down {
@@ -95,49 +95,49 @@ ul {
 		-moz-transform: rotate(0deg);
 		-o-transform: rotate(0deg); }
 }
-.container .nav li.catelog ul {
+#content #cats li.catelog ul {
 	display: none;
 	margin-left: 50px;
 }
-.container .nav li.catelog ul li {
+#content #cats li.catelog ul li {
 	line-height: 40px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-.container .nav li.catelog ul li a {
+#content #cats li.catelog ul li a {
 	display: inline-block;
 	height: 100%;
 	font-size: 20px;
 	padding-left: 40px;
 	padding-right: 100px;
 }
-.container .nav li.list-detail a {
+#content #cats li#list-detail a {
 	background-color: #fcf8e3;
 }
-.container .list li {
+#content #list li {
 	width: 88%;
 	height: 70px;
 	padding-left: 20px;
 	padding-top: 10px;
 }
-.container .list li a {
+#content #list li a {
 	display: block;
 	width: 100%;
 	height: 100%;
 	border-bottom: 1px solid #eee;
 }
-.container .list li a img {
+#content #list li a img {
 	float: left;
 	height: 60px;
 	width: 60px;
 }
-.container .list li a h3 {
+#content #list li a h3 {
 	margin-left: 80px;
 	height: 28px;
 	line-height: 28px;
 	font-size: 22px;
 }
-.container .list li a p {
+#content #list li a p {
 	margin-left: 80px;
 	height: 30px;
 	width: 71%;
@@ -146,21 +146,21 @@ ul {
 	word-break: break-all;
 	overflow: hidden;
 }
-.container .detail .post {
+#content #entry .post {
 	width: 90%;
 	padding-left: 10px;
 	padding-right: 10px;
 }
-.container .detail .post h3 {
+#content #entry .post h3 {
 	text-align: center;
 	font-size: 30px;
 	line-height: 36px;
 }
-.container .detail .post img {
+#content #entry .post img {
 	width: 70%;
 	margin: 10px 40px;
 }
-.container .detail .post p {
+#content #entry .post p {
 	width: 90%;
 	margin-left: 20px;
 	word-break: break-all;
