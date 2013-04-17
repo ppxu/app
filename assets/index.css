@@ -1,0 +1,56 @@
+#reader {
+    max-width: 900px;
+    width: 100%;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+#head:after {
+    content: '.';
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+#branding {
+    width: 300px;
+    float: left;
+}
+
+#search {
+    width: 200px;
+    float: right;
+}
+
+.content-column {
+    float: left;
+    height: 500px;
+    position: relative;
+    width: 32%;
+}
+
+.column-actions {
+    position: absolute;
+    bottom: 0;
+}
+
+.column-actions .action {
+    display: inline;
+    content: ".";
+}
+
+.column-actions .action a {
+    display: block;
+    /*text-indent: -9999px;*/
+
+}
+
+.entry-list li {
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.entry-list li:hover {
+    color: #0088ff;
+}

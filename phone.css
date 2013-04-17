@@ -146,3 +146,32 @@ ul {
 	word-break: break-all;
 	overflow: hidden;
 }
+.container .detail .post {
+	width: 90%;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.container .detail .post h3 {
+	text-align: center;
+	font-size: 30px;
+	line-height: 36px;
+}
+.container .detail .post img {
+	width: 70%;
+	margin: 10px 40px;
+}
+.container .detail .post p {
+	width: 90%;
+	margin-left: 20px;
+	word-break: break-all;
+	font-size: 18px;
+	line-height: 18px;
+}
+.footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	height: 20px;
+	line-height: 20px;
+	background-color: #ccc;
+}
