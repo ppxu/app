@@ -7,50 +7,59 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
 	<title>Simple Reader</title>
-	<link rel="stylesheet" href="./phone.css" media="only screen and (max-width: 480px)">
-	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="apple-touch-startup-image-640x920.png">
+	<link rel="stylesheet" href="topcoat/release/css/topcoat-mobile-min.css"/>
+    <link rel="stylesheet" href="assets/index.css"/>
+    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/phone.css" media="only screen and (max-width: 480px)">
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="assets/apple-touch-startup-image-640x920.png">
 </head>
 <body>
 	<div id="reader">
 		<div id="head">
-			<a href="javascript:void(0);" class="navigator">&lt;&lt;</a>
-			<h2>home</h2>
+			<a class="navigator"><i class="icon-angle-left"></i></a>
+			<div id="branding" class="heading">
+	            <h1> Simple Reader </h1>
+	        </div>
+	        <div id="search" class="heading">
+	            <input type="text" placeholder="请输入搜索内容"/>
+	        </div>
+	        <a class="search"><i class="icon-search"></i></a>
 		</div>
 		<div id="content">
 			<div id="cats" class="content-column">
 				<ul>
-					<li class="today level-1"><a href="javascript:void(0);">今日 <span class="unread-count">983</span></a></li>
-					<li class="all level-1"><a href="javascript:void(0);">全部</a></li>
-					<li class="star level-1"><a href="javascript:void(0);">收藏</a></li>
+					<li class="today level-1">今日 <span class="unread-count notification">983</span></li>
+					<li class="all level-1">全部 </li>
+					<li class="star level-1">收藏 </li>
 				</ul>
 				<ul>
-					<li class="catelog level-1"><a href="javascript:void(0);"><span>&gt;</span> CATELOG111</a>
+					<li class="catelog level-1"><span>&gt;</span> CATELOG111
 						<ul class="level-2">
-							<li class="list-detail"><a href="javascript:void(0);">LIST1</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST2</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST3</a></li>
+							<li class="list-detail">LIST1</li>
+							<li class="list-detail">LIST2</li>
+							<li class="list-detail">LIST3</li>
 						</ul>
 					</li>
-					<li class="catelog level-1"><a href="javascript:void(0);"><span>&gt;</span> CATELOG22222</a>
+					<li class="catelog level-1"><span>&gt;</span> CATELOG22222
 						<ul class="level-2">
-							<li class="list-detail"><a href="javascript:void(0);">LIST4</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST5</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST6</a></li>
+							<li class="list-detail">LIST4</li>
+							<li class="list-detail">LIST5</li>
+							<li class="list-detail">LIST6</li>
 						</ul>
 					</li>
-					<li class="catelog level-1"><a href="javascript:void(0);"><span>&gt;</span> CATELOG3333333</a>
+					<li class="catelog level-1"><span>&gt;</span> CATELOG3333333
 						<ul class="level-2">
-							<li class="list-detail"><a href="javascript:void(0);">LIST7</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST8</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST9</a></li>
+							<li class="list-detail">LIST7</li>
+							<li class="list-detail">LIST8</li>
+							<li class="list-detail">LIST9</li>
 						</ul>
 					</li>
-					<li class="catelog level-1"><a href="javascript:void(0);"><span>&gt;</span> CATELOG4444</a>
+					<li class="catelog level-1"><span>&gt;</span> CATELOG4444
 						<ul class="level-2">
-							<li class="list-detail"><a href="javascript:void(0);">LIST10</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST11</a></li>
-							<li class="list-detail"><a href="javascript:void(0);">LIST12</a></li>
+							<li class="list-detail">LIST10</li>
+							<li class="list-detail">LIST11</li>
+							<li class="list-detail">LIST12</li>
 						</ul>
 					</li>
 				</ul>
@@ -104,6 +113,6 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="http://a.tbcdn.cn/s/kissy/1.3.0/seed-min.js"></script>
-	<script src="./phone.js"></script>
+	<script src="assets/phone.js"></script>
 </body>
 </html>

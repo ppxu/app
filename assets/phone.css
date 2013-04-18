@@ -18,15 +18,30 @@ ul {
 	height: 40px;
 	line-height: 40px;
 	background-color: #ccc;
+	position: relative;
 }
-#head a {
-	float: left;
-	text-indent: 20px;
+#head .navigator {
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-indent: 10px;
 	visibility: hidden;
 }
-#head h2 {
+#head #branding {
+	width: auto;
+	float: none;
+}
+#head h1 {
+	font-size: 24px;
 	text-align: center;
-	text-indent: -40px;
+}
+#head #search {
+	display: none;
+}
+#head .search {
+	position: absolute;
+	top: 0;
+	right: 10px;
 }
 #content {
 	width: 100%;
@@ -42,26 +57,35 @@ ul {
 	line-height: 50px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-}
-#content #cats li a {
-	display: inline-block;
+	float: left;
+	clear: left;
 	height: 100%;
 	font-size: 24px;
 	padding-left: 20px;
-	padding-right: 60px;
+	padding-right: 50px;
 	white-space: nowrap;
+	border-radius: 0 25px 25px 0;
 }
-#content #cats li.catelog a {
+#content #cats li.catelog {
 	background-color: #d9edf7;
 }
-#content #cats li.today a {
+#content #cats li.today {
 	background-color: #dff0d8;
 }
-#content #cats li.star a {
+#content #cats li.all {
+	background-color: rgb(250, 247, 172);
+}
+#content #cats li.star {
 	background-color: #f2dede;
 }
 #content #cats li span {
 	display: inline-block;
+}
+#content #cats li .unread-count {
+	position: relative;
+	left: 20px;
+	font-size: inherit;
+	padding: 0 5px;
 }
 .down {
 	-webkit-animation-name: rotate-to-down;
