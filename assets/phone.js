@@ -52,9 +52,9 @@
 			S.all('li.catelog').on(E.Gesture.tap, function(ev) {
 				ev.halt();
 				var el = ev.target;
-				var arrow = S.one(el).parent('li').one('span');
+				var arrow = S.one(el).one('i');
 				arrow.hasClass('down') ? arrow.replaceClass('down', 'right') : arrow.removeClass('right').addClass('down');
-				S.one(el).parent('li').one('ul').slideToggle(0.4);
+				S.one(el).one('ul').slideToggle(0.4);
 			});
 
 			S.one('li.today').add('li.all').add('li.star').add('li.list-detail').on(E.Gesture.tap, function(ev) {
@@ -74,8 +74,23 @@
 				});
 			});
 
-			S.one('#list').all('li').on(E.Gesture.tap, function(ev) {
-				ev.halt();
+			S.one('#list').all('li').on(E.Gesture.start, function(ev) {
+				this.flag = true;
+				this.originX = ev.pageX;
+				this.originY = ev.pageY;
+				console.log(this.originX + '-' + this.originY);
+			});
+			S.one('#list').all('li').on(E.Gesture.move, function(ev) {
+				if(this.flag){
+					console.log('move');
+					console.log(ev);
+				}
+				
+			});
+
+			S.one('#list').on(E.Gesture.tap, function(ev) {
+				console.log('tap');
+
 				oCustomEvt.fire('hide', {
 					node: S.one('#list'),
 					direction: 'left',
@@ -87,6 +102,11 @@
 						S.one('#entry').fadeIn();
 					}
 				});
+			});
+			S.one('#list').all('li').on(E.Gesture.end, function(ev) {
+				this.flag = false;
+				console.log('end')
+				console.log(ev)
 			});
 
 			S.one('.navigator').on(E.Gesture.tap, function(ev) {
