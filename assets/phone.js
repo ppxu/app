@@ -75,23 +75,36 @@
 			});
 
 			S.one('#list').all('li').on(E.Gesture.start, function(ev) {
-				this.flag = true;
+				this.isDown = true;
+				this.isMoving = 0;
 				this.originX = ev.pageX;
 				this.originY = ev.pageY;
 			});
 			S.one('#list').all('li').on(E.Gesture.move, function(ev) {
-				if(this.flag){
-					this.currentX = ev.pageX;
-					this.currentY = ev.pageY;
-					this.deltaX = this.currentX - this.originX;
-					S.one(this).css('margin-left', this.deltaX);
+				var self = this;
+				if(self.isDown){
+					self.timer = setTimeout(function(){
+						self.isMoving = 1;
+						self.currentX = ev.pageX;
+						self.currentY = ev.pageY;
+						self.deltaX = self.currentX - self.originX;
+						S.one(self).css('margin-left', self.deltaX / 2);
+					}, 300);
 				}
-
+			});
+			S.one('#list').all('li').on(E.Gesture.end, function(ev) {
+				if(this.isMoving === 1){
+					this.isDown = false;
+					this.isMoving = 2;
+					S.one(this).animate({'margin-left': 0}, 0.5, 'easeOutStrong');
+				}
 			});
 
-			S.one('#list').on(E.Gesture.tap, function(ev) {
-				console.log('tap');
-
+			S.one('#list').all('li').on(E.Gesture.tap, function(ev) {
+				this.isDown = false;
+				if(this.isMoving === 1 || this.isMoving === 2){
+					return;
+				}
 				oCustomEvt.fire('hide', {
 					node: S.one('#list'),
 					direction: 'left',
@@ -103,11 +116,6 @@
 						S.one('#entry').fadeIn();
 					}
 				});
-			});
-			S.one('#list').all('li').on(E.Gesture.end, function(ev) {
-				this.flag = false;
-				console.log('end')
-				console.log(ev)
 			});
 
 			S.one('.navigator').on(E.Gesture.tap, function(ev) {
