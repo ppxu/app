@@ -78,14 +78,15 @@
 				this.flag = true;
 				this.originX = ev.pageX;
 				this.originY = ev.pageY;
-				console.log(this.originX + '-' + this.originY);
 			});
 			S.one('#list').all('li').on(E.Gesture.move, function(ev) {
 				if(this.flag){
-					console.log('move');
-					console.log(ev);
+					this.currentX = ev.pageX;
+					this.currentY = ev.pageY;
+					this.deltaX = this.currentX - this.originX;
+					S.one(this).css('margin-left', this.deltaX);
 				}
-				
+
 			});
 
 			S.one('#list').on(E.Gesture.tap, function(ev) {
