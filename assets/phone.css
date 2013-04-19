@@ -2,6 +2,9 @@
 	margin: 0;
 	padding: 0;
 }
+html {
+	font-size: 10px;
+}
 a {
 	text-decoration: none;
 	color: #000;
@@ -18,7 +21,9 @@ ul {
 	height: 40px;
 	line-height: 40px;
 	background-color: #ccc;
-	position: relative;
+	position: fixed;
+	z-index: 9;
+	box-shadow: 0 5px 10px #fff;
 }
 #head .navigator {
 	position: absolute;
@@ -32,7 +37,7 @@ ul {
 	float: none;
 }
 #head h1 {
-	font-size: 24px;
+	font-size: 2.4rem;
 	font-weight: normal;
 	text-align: center;
 }
@@ -47,6 +52,8 @@ ul {
 #content {
 	width: 100%;
 	overflow-x: hidden;
+	position: relative;
+	top: 40px;
 }
 #content #cats,
 #content #list,
@@ -63,24 +70,48 @@ ul {
 	float: left;
 	clear: left;
 	height: 100%;
-	font-size: 24px;
+	font-size: 2.4rem;
 	padding-left: 20px;
-	padding-right: 50px;
+	padding-right: 35px;
 	white-space: nowrap;
-	border-radius: 0 25px 25px 0;
+	position: relative;
+}
+#content #cats li.today:after,
+#content #cats li.all:after,
+#content #cats li.star:after {
+	content: '';
+	display: inline-block;
+	height: 0;
+	width: 0;
+	border-right: 20px solid transparent;
+	position: absolute;
+	right: -20px;
 }
 #content #cats li.today {
 	background-color: #dff0d8;
 }
+#content #cats li.today:after {
+	border-top: 25px solid #dff0d8;
+	border-bottom: 25px solid #dff0d8;
+}
 #content #cats li.all {
 	background-color: rgb(250, 247, 172);
+}
+#content #cats li.all:after {
+	border-top: 25px solid rgb(250, 247, 172);
+	border-bottom: 25px solid rgb(250, 247, 172);
 }
 #content #cats li.star {
 	background-color: #f2dede;
 }
+#content #cats li.star:after {
+	border-top: 25px solid #f2dede;
+	border-bottom: 25px solid #f2dede;
+}
 #content #cats li.catelog {
 	background-color: #d9edf7;
-	padding-right: 40px;s
+	padding-right: 40px;
+	border-radius: 0 25px 25px 0;
 }
 #content #cats li span {
 	display: inline-block;
@@ -100,7 +131,7 @@ ul {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	padding-right: 10px;
-	font-size: 20px;
+	font-size: 2rem;
 }
 #content #cats li.catelog ul li .unread-count {
 	left: 5px;
@@ -111,7 +142,7 @@ ul {
 	background-color: rgb(140, 200, 247);
 	border-radius: 20px;
 	padding: 0;
-	font-size: 14px;
+	font-size: 1.4rem;
 	border: 4px solid #fff;
 	text-align: center;
 }
@@ -119,25 +150,39 @@ ul {
 	-webkit-animation-name: rotate-to-down;
 	-webkit-animation-duration: .4s;
 	-webkit-animation-timing-function: ease;
-	-webkit-animation-fill-mode: both;
+	-webkit-transform: rotate(90deg);
 }
 @-webkit-keyframes rotate-to-down {
-	0% {transform: rotate(0deg);
-		-webkit-transform: rotate(0deg);}
-	100% {transform: rotate(90deg);
-		-webkit-transform: rotate(90deg);}
+	0% {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(90deg);}
 }
 .right {
 	-webkit-animation-name: rotate-to-right;
 	-webkit-animation-duration: .4s;
 	-webkit-animation-timing-function: ease;
-	-webkit-animation-fill-mode: both;
+	-webkit-transform: rotate(0deg);
 }
 @-webkit-keyframes rotate-to-right {
-	0% {transform: rotate(90deg);
-		-webkit-transform: rotate(90deg);}
-	100% {transform: rotate(0deg);
-		-webkit-transform: rotate(0deg);}
+	0% {-webkit-transform: rotate(90deg);}
+	100% {-webkit-transform: rotate(0deg);}
+}
+.show {
+	-webkit-animation-name: show-to-right;
+	-webkit-animation-duration: .4s;
+	-webkit-animation-timing-function: ease;
+}
+@-webkit-keyframes show-to-right {
+	0% {margin-left: -320px;}
+	100% {margin-left: 0;}
+}
+.hide {
+	-webkit-animation-name: hide-to-left;
+	-webkit-animation-duration: .4s;
+	-webkit-animation-timing-function: ease;
+}
+@-webkit-keyframes hide-to-left {
+	0% {margin-left: 0;}
+	100% {margin-left: -320px;}
 }
 #content #list li {
 	width: 88%;
@@ -155,16 +200,43 @@ ul {
 	margin-left: 80px;
 	height: 28px;
 	line-height: 28px;
-	font-size: 22px;
+	font-size: 2.2rem;
 }
 #content #list li p {
 	margin-left: 80px;
 	height: 30px;
 	width: 71%;
-	font-size: 14px;
+	font-size: 1.4rem;
 	line-height: 14px;
 	word-break: break-all;
 	overflow: hidden;
+}
+#content #list .column-actions {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	height: 24px;
+	background-color: #eee;
+	box-shadow: 0 0 15px #888;
+}
+#content #list .column-actions ul li {
+	float: left;
+	width: 33%;
+	text-align: center;
+	height: 24px;
+	line-height: 26px;
+	padding: 0;
+	border: none;
+	font-size: 1.4rem
+}
+#content #list .column-actions ul li.all-posts {
+	color: #555;
+}
+#content #list .column-actions ul li.unread-posts {
+	color: #555;
+}
+#content #list .column-actions ul li.star-posts {
+	color: rgb(235, 120, 120);
 }
 #content #entry .post {
 	width: 90%;
@@ -173,7 +245,7 @@ ul {
 }
 #content #entry .post h3 {
 	text-align: center;
-	font-size: 30px;
+	font-size: 3rem;
 	line-height: 36px;
 }
 #content #entry .post img {
@@ -184,7 +256,7 @@ ul {
 	width: 90%;
 	margin-left: 20px;
 	word-break: break-all;
-	font-size: 18px;
+	font-size: 1.8rem;
 	line-height: 18px;
 }
 .footer {
