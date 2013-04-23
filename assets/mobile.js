@@ -176,7 +176,8 @@ KISSY.use('node, event', function(S, N, E) {
 					self.deltaX = self.currentX - self.originX;
 					self.deltaY = self.currentY - self.originY;
 					if (Math.abs(self.deltaY) <= 20) {
-						self.deltaX % 3 === 0 && S.one(self).css('margin-left', self.deltaX / 3);
+						self.deltaX % 3 === 0 && S.one(self).one('.inner').css('margin-left', self.deltaX / 3);
+						S.one(self).one('.mark-read').css('opacity', self.deltaX / 150);
 					}
 				}
 			});
@@ -184,9 +185,12 @@ KISSY.use('node, event', function(S, N, E) {
 				if (this.isMoving === 1) {
 					this.isDown = false;
 					this.isMoving = 2;
-					S.one(this).animate({
+					S.one(this).one('.inner').animate({
 						'margin-left': 0
 					}, 0.5, 'easeOutStrong');
+					S.one(this).one('.mark-read').animate({
+						'opacity': 0
+					}, 0.4);
 				}
 			});
 
