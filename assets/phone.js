@@ -2,9 +2,7 @@ KISSY.use('node, event', function(S, N, E) {
 
 	if (S.DOM.viewportWidth() <= 480) {
 
-		window.scrollTo(0, 1);
-
-		oCustomEvt = S.merge({}, S.EventTarget),
+		var oCustomEvt = S.merge({}, S.EventTarget);
 
 		oCustomEvt.on('show', function(ev) {
 			var element = ev.node;
@@ -51,7 +49,10 @@ KISSY.use('node, event', function(S, N, E) {
 		});
 
 		oCustomEvt.fire('show', {
-			node: S.one('#cats')
+			node: S.one('#cats'),
+			callback: function(){
+				window.scrollTo(0, 1);
+			}
 		});
 
 		S.all('li.catelog').on(E.Gesture.tap, function(ev) {
@@ -96,23 +97,25 @@ KISSY.use('node, event', function(S, N, E) {
 
 		S.one('#list').all('li').on(E.Gesture.start, function(ev) {
 			S.one('.mobile-search').hide();
-			ev.halt();
 			this.isDown = true;
 			this.isMoving = 0;
 			this.originX = ev.pageX;
+			this.originY = ev.pageY;
 		});
 		S.one('#list').all('li').on(E.Gesture.move, function(ev) {
-			ev.halt();
 			var self = this;
 			if (self.isDown) {
 				self.isMoving = 1;
 				self.currentX = ev.pageX;
+				self.currentY = ev.pageY;
 				self.deltaX = self.currentX - self.originX;
-				self.deltaX % 3 === 0 && S.one(self).css('margin-left', self.deltaX / 3);
+				self.deltaY = self.currentY - self.originY;
+				if(Math.abs(self.deltaY) <= 20){
+					self.deltaX % 3 === 0 && S.one(self).css('margin-left', self.deltaX / 3);					
+				}
 			}
 		});
 		S.one('#list').all('li').on(E.Gesture.end, function(ev) {
-			ev.halt();
 			if (this.isMoving === 1) {
 				this.isDown = false;
 				this.isMoving = 2;
