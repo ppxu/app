@@ -48,6 +48,7 @@ KISSY.add(function(S) {
 	oCustomEvt.on('hide', function(ev) {
 		hideToLeft(ev.node);
 		ev.callback && S.later(function() {
+			ev.node.hide();
 			ev.callback();
 		}, 500);
 	});
