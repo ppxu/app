@@ -30,7 +30,11 @@ ul {
 	top: 0;
 	left: 0;
 	text-indent: 10px;
+	line-height: 42px;
 	visibility: hidden;
+}
+#head .navigator i {
+	font-size: 20px;
 }
 #head #branding {
 	width: auto;
@@ -227,6 +231,9 @@ ul {
 #content #list li:hover {
 	color: #000;
 }
+#content #list li .inner {
+	width: 100%;
+}
 #content #list li img {
 	float: left;
 	height: 60px;
@@ -250,23 +257,20 @@ ul {
 #content #list li .mark-read,
 #content #list li .mark-star {
 	position: absolute;
-	top: 10px;
-	height: 60px;
+	top: 5px;
+	height: 70px;
 	width: 60px;
-	text-align: center;
 	font-size: 40px;
-	line-height: 60px;
+	line-height: 70px;
 	opacity: 0;
 }
 #content #list li .mark-read {
 	left: 0;
 	color: #555;
-	border-right: 1px solid #555;
 }
 #content #list li .mark-star {
 	right: -15px;
 	color: rgb(235, 120, 120);
-	border-left: 1px solid #555;
 }
 #content #list .column-actions {
 	width: 100%;

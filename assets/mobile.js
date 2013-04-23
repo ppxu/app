@@ -177,7 +177,34 @@ KISSY.use('node, event', function(S, N, E) {
 					self.deltaY = self.currentY - self.originY;
 					if (Math.abs(self.deltaY) <= 20) {
 						self.deltaX % 3 === 0 && S.one(self).one('.inner').css('margin-left', self.deltaX / 3);
-						S.one(self).one('.mark-read').css('opacity', self.deltaX / 150);
+						if(self.deltaX > 0){
+							S.one(self).one('.mark-read').css('opacity', self.deltaX / 150);
+							if(self.deltaX >= 150){
+								alert('mark as read!');
+								self.isDown = false;
+								self.isMoving = 2;
+								S.one(self).one('.inner').animate({
+									'margin-left': 0
+								}, 0.5, 'easeOutStrong');
+								S.one(self).one('.mark-read').animate({
+									'opacity': 0
+								}, 0.3);
+							}
+						}
+						else{
+							S.one(self).one('.mark-star').css('opacity', -self.deltaX / 150);
+							if(self.deltaX <= -150){
+								alert('mark as star!');
+								self.isDown = false;
+								self.isMoving = 2;
+								S.one(self).one('.inner').animate({
+									'margin-left': 0
+								}, 0.5, 'easeOutStrong');
+								S.one(self).one('.mark-star').animate({
+									'opacity': 0
+								}, 0.3);
+							}
+						}
 					}
 				}
 			});
@@ -190,7 +217,10 @@ KISSY.use('node, event', function(S, N, E) {
 					}, 0.5, 'easeOutStrong');
 					S.one(this).one('.mark-read').animate({
 						'opacity': 0
-					}, 0.4);
+					}, 0.3);
+					S.one(this).one('.mark-star').animate({
+						'opacity': 0
+					}, 0.3);
 				}
 			});
 
