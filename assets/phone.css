@@ -49,6 +49,33 @@ ul {
 	top: 0;
 	right: 10px;
 }
+#head .mobile-search {
+	display: none;
+	position: absolute;
+	top: 40px;
+	left: 0;
+	padding: 20px 10% 40px;
+	width: 80%;
+	height: 100px;
+	background-color: rgba(170,170,170,0.9);
+}
+#head .mobile-search .light-search-input {
+	background-image: none;
+	padding-left: 5px;
+	border-radius: 10px;
+}
+#head .mobile-search input {
+	width: 100%;
+}
+#head .mobile-search a {
+	margin-top: 20px;
+	float: left;
+	left: 20px;
+}
+#head .mobile-search .light-cta {
+	float: right;
+	left: 0;
+}
 #content {
 	width: 100%;
 	overflow-x: hidden;
@@ -229,6 +256,10 @@ ul {
 	border: none;
 	font-size: 1.4rem
 }
+#content #list .column-actions ul li.active {
+	background-color: #ddd;
+	box-shadow: inset 0 0 3px #aaa;
+}
 #content #list .column-actions ul li.all-posts {
 	color: #555;
 }
@@ -238,32 +269,50 @@ ul {
 #content #list .column-actions ul li.star-posts {
 	color: rgb(235, 120, 120);
 }
-#content #entry .post {
+#content #entry #entry-content {
 	width: 90%;
 	padding-left: 10px;
 	padding-right: 10px;
 }
-#content #entry .post h3 {
+#content #entry #entry-content h3 {
 	text-align: center;
 	font-size: 3rem;
-	line-height: 36px;
+	line-height: 48px;
 }
-#content #entry .post img {
+#content #entry #entry-content img {
 	width: 70%;
 	margin: 10px 40px;
 }
-#content #entry .post p {
+#content #entry #entry-content p {
 	width: 90%;
 	margin-left: 20px;
 	word-break: break-all;
 	font-size: 1.8rem;
 	line-height: 18px;
 }
-.footer {
+#content #entry .column-actions {
 	width: 100%;
 	position: fixed;
 	bottom: 0;
-	height: 20px;
-	line-height: 20px;
-	background-color: #ccc;
+	height: 24px;
+	background-color: #eee;
+	box-shadow: 0 0 15px #888;
+}
+#content #entry .column-actions ul li {
+	float: left;
+	width: 24%;
+	text-align: center;
+	height: 24px;
+	line-height: 26px;
+	padding: 0;
+	border: none;
+	font-size: 1.4rem
+}
+#content #entry .column-actions ul li.toggle-read,
+#content #entry .column-actions ul li.prev,
+#content #entry .column-actions ul li.next {
+	color: #555;
+}
+#content #entry .column-actions ul li.toggle-star {
+	color: rgb(235, 120, 120);
 }

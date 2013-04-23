@@ -25,6 +25,11 @@
 	            <input type="text" placeholder="请输入搜索内容"/>
 	        </div>
 	        <a class="search"><i class="icon-search"></i></a>
+	        <div class="mobile-search">
+	        	<input type="search" class="light-search-input" value="" placeholder="请输入搜索内容">
+				<a href="#" class="light-button J_Cancel" role="button">取消</a>
+				<a href="#" class="light-cta light-button J_Search" role="button">搜索</a>
+	        </div>
 		</div>
 		<div id="content">
 			<div id="cats" class="content-column">
@@ -111,18 +116,26 @@
 				</div>
 				<div class="column-actions">
 	                <ul class="action-list">
-	                    <li class="all-posts"><i class="icon-circle"></i></li>
+	                    <li class="all-posts active"><i class="icon-circle"></i></li>
 	                    <li class="unread-posts"><i class="icon-circle-blank"></i></li>
 	                    <li class="star-posts"><i class="icon-heart"></i></li>
 	                </ul>
 	            </div>
 			</div>
 			<div id="entry" class="content-column">
-				<div class="post">
+				<div id="entry-content">
 					<h3>TITLE XXXXX</h3>
 					<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 					<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 				</div>
+				<div class="column-actions">
+	                <ul class="action-list">
+	                    <li class="toggle-read"><i class="icon-circle"></i></li>
+	                    <li class="toggle-star"><i class="icon-heart-empty"></i></li>
+	                    <li class="prev"><i class="icon-chevron-up"></i></li>
+	                    <li class="next"><i class="icon-chevron-down"></i></li>
+	                </ul>
+	            </div>
 			</div>
 		</div>
 	</div>
