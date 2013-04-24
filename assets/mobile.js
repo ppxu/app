@@ -1,58 +1,63 @@
 KISSY.use('node, event', function(S, N, E) {
 
-	function leftToShow(element) {
-		element.show();
-		var lists = element.all('.level-1');
-		lists.css('margin-left', '-320px').each(function(el, index) {
-			if (index < 7) {
-				S.later(function() {
-					S.Anim(el, {
-						'margin-left': 0
-					}, 0.4, 'easeOutStrong').run();
-					// el.removeClass('hide').addClass('show');
-					// el.css('margin-left', '0');
-				}, 150 * index);
-			} else {
-				el.css('margin-left', '0');
-			}
-		});
-	}
+	//动画集合
+	var animateCollection = {
+		leftToShow: function(element){
+			element.show();
+			var lists = element.all('.level-1');
+			lists.css('margin-left', '-320px').each(function(el, index) {
+				if (index < 7) {
+					S.later(function() {
+						S.Anim(el, {
+							'margin-left': 0
+						}, 0.4, 'easeOutStrong').run();
+						// el.removeClass('hide').addClass('show');
+						// el.css('margin-left', '0');
+					}, 150 * index);
+				} else {
+					el.css('margin-left', '0');
+				}
+			});
+		},
+		hideToLeft: function(element){
+			var lists = element.all('.level-1');
+			// var extra = ev.direction === 'left' ? '-' : '';
+			lists.each(function(el, index) {
+				if (index < 7) {
+					S.later(function() {
+						S.Anim(el, {
+							'margin-left': '-320px'
+						}, 0.3, 'easeOutStrong').run();
+						// el.replaceClass('show', 'hide');
+						// el.css('margin-left', '-320px');
+					}, 100 * index);
+				} else {
+					el.css('margin-left', '-320px');
+				}
+			});
+		},
+		translateHorizon: function(element, value){
+			element.css('-webkit-transform', 'translateX(' + value +'px)');
+		}
+	};
 
-	function hideToLeft(element) {
-		var lists = element.all('.level-1');
-		// var extra = ev.direction === 'left' ? '-' : '';
-		lists.each(function(el, index) {
-			if (index < 7) {
-				S.later(function() {
-					S.Anim(el, {
-						'margin-left': '-320px'
-					}, 0.3, 'easeOutStrong').run();
-					// el.replaceClass('show', 'hide');
-					// el.css('margin-left', '-320px');
-				}, 100 * index);
-			} else {
-				el.css('margin-left', '-320px');
-			}
-		});
-	}
-
+	//事件中心
 	var oCustomEvt = S.merge({}, S.EventTarget);
-
 	oCustomEvt.on('show', function(ev) {
-		leftToShow(ev.node);
+		animateCollection.leftToShow(ev.node);
 		ev.callback && S.later(function() {
 			ev.callback();
 		}, 800);
 	});
-
 	oCustomEvt.on('hide', function(ev) {
-		hideToLeft(ev.node);
+		animateCollection.hideToLeft(ev.node);
 		ev.callback && S.later(function() {
 			ev.node.hide();
 			ev.callback();
 		}, 500);
 	});
 
+	//页面切换
 	var pageSwitch = {
 		loadHome: function() {
 			oCustomEvt.fire('show', {
@@ -66,10 +71,10 @@ KISSY.use('node, event', function(S, N, E) {
 			oCustomEvt.fire('hide', {
 				node: S.one('#cats'),
 				callback: function() {
-					S.one('#list').one('.column-actions').show();
 					S.one('.navigator').addClass('home').css('visibility', 'visible');
 					S.one('#head').one('h1').html(cfg.title);
 					S.one('#head').one('h1').attr('list_title', cfg.title);
+					S.one('#list').one('.column-actions').show();
 					oCustomEvt.fire('show', {
 						node: S.one('#list'),
 						callback: function() {
@@ -176,15 +181,15 @@ KISSY.use('node, event', function(S, N, E) {
 					self.deltaX = self.currentX - self.originX;
 					self.deltaY = self.currentY - self.originY;
 					if (Math.abs(self.deltaY) <= 20) {
-						self.deltaX % 3 === 0 && S.one(self).one('.inner').css('margin-left', self.deltaX / 3);
+						self.deltaX % 2 === 0 && animateCollection.translateHorizon(S.one(self).one('.inner'), self.deltaX / 2);
 						if(self.deltaX > 0){
-							S.one(self).one('.mark-read').css('opacity', self.deltaX / 150);
-							if(self.deltaX >= 150){
+							S.one(self).one('.mark-read').css('opacity', self.deltaX / 120);
+							if(self.deltaX >= 120){
 								alert('mark as read!');
 								self.isDown = false;
 								self.isMoving = 2;
 								S.one(self).one('.inner').animate({
-									'margin-left': 0
+									'-webkit-transform': translateX(0)
 								}, 0.5, 'easeOutStrong');
 								S.one(self).one('.mark-read').animate({
 									'opacity': 0
@@ -198,7 +203,7 @@ KISSY.use('node, event', function(S, N, E) {
 								self.isDown = false;
 								self.isMoving = 2;
 								S.one(self).one('.inner').animate({
-									'margin-left': 0
+									'-webkit-transform': translateX(0)
 								}, 0.5, 'easeOutStrong');
 								S.one(self).one('.mark-star').animate({
 									'opacity': 0
