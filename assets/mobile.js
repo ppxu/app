@@ -246,9 +246,9 @@ KISSY.add('mobile', function(S, N, E) {
 				if (this.isMoving === 1 || this.isMoving === 2) {
 					return;
 				}
-				var curTitle = S.one(this).one('h2').html();
+				var curTitle = S.one(this).one('h2').text();
 				pageSwitch.listToDetail({
-					'title': curTitle
+					'title': '文章详情'
 				});
 			});
 

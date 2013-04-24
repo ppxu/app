@@ -19,10 +19,13 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO) {
 
             var entries = [];
             S.each(list, function (entryInfo) {
-                var entry = '<li class="title level-1 {clazz}"><h2>' +
-                            '<a href="{link}" data-id={id}>{title}</a>' +
-                            '</h2>' +
+                var entry = '<li class="title level-1 {clazz}">' +
+                            '<div class="inner">' +
+                            '<h2><a href="{link}" data-id={id}>{title}</a></h2>' +
                             '<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>' +
+                            '</div>' +
+                            '<span class="mark-read"><i class="icon-ok"></i></span>' +
+                            '<span class="mark-star"><i class="icon-heart"></i></span>' +
                             '</li>';
 
                 entryInfo['clazz'] = entryInfo['is_unread'] ? 'unread' : 'read';
@@ -156,10 +159,15 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO) {
     IO.get('http://10.232.133.213/tags/', function (cats) {
         var cats = cats.data;
         renderCatList(cats);
+        MC.fire('home-loaded');
     }, JSONP);
 
+
     if (S.DOM.viewportWidth() <= 480) {
-        S.use('mobile');
+        MC.on('home-loaded', function(){
+            S.use('mobile');
+        });
+
     }
 
 }, { requires: [
