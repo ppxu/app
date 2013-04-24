@@ -33,13 +33,13 @@
 		</div>
 		<div id="content">
 			<div id="cats" class="content-column">
-				<ul class="system-cats">
+				<ul class="system-cats cat-list">
 					<li class="today level-1"><i class="icon-rss"></i> 今日 <span class="unread-count notification">983</span></li>
 					<li class="all level-1"><i class="icon-reorder"></i> 全部 </li>
 					<li class="star level-1"><i class="icon-bookmark-empty"></i> 收藏 </li>
 				</ul>
-				<ul class="user-cats">
-					<li class="catelog level-1"><i class="icon-angle-right"></i> technology
+				<ul class="user-cats cat-list" id="user-cat-list">
+					<!-- <li class="catelog level-1"><i class="icon-angle-right"></i> technology
 						<ul class="level-2">
 							<li class="list-detail">computer <span class="unread-count">23</span></li>
 							<li class="list-detail">psycology <span class="unread-count">123</span></li>
@@ -74,14 +74,25 @@
 							<li class="list-detail">LIST15</li>
 						</ul>
 					</li>
+					<li class="list-detail title level-1">LIST13</li>
+					<li class="list-detail title level-1">LIST14</li>
+					<li class="list-detail title level-1">LIST15</li> -->
 				</ul>
 			</div>
 			<div id="list" class="content-column">
 				<div class="entries">
-					<ul class="entry-list">
+					<ul class="entry-list"
+                    data-bind="template: { name: 'tpl-entry-head', foreach: entryList }">
+	           <!--         <script type="text/html" id="tpl-entry-head">
+	                        <li>
+	                            <h2 data-bind="text:title">
+	                            </h2>
+	                        </li>
+	                    </script>-->
+	                </ul>
+					<!-- <ul class="entry-list">
 						<li class="level-1">
 							<div class="inner">
-								<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 								<h3>TITLE1</h3>
 								<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 							</div>
@@ -89,41 +100,34 @@
 							<span class="mark-star"><i class="icon-heart"></i></span>
 						</li>
 						<li class="level-1">
-							<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 							<h3>TITLE2</h3>
 							<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 						</li>
 						<li class="level-1">
-							<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
-								<h3>TITLE3</h3>
-								<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+							<h3>TITLE3</h3>
+							<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 						</li>
 						<li class="level-1">
-							<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 							<h3>TITLE4</h3>
 							<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 						</li>
 						<li class="level-1">
-							<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 							<h3>TITLE5</h3>
 							<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 						</li>
 						<li class="level-1">
-							<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 							<h3>TITLE6</h3>
 							<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 						</li>
 						<li class="level-1">
-							<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 							<h3>TITLE7</h3>
 							<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 						</li>
 						<li class="level-1">
-							<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
 							<h3>TITLE8</h3>
 							<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 						</li>
-					</ul>
+					</ul> -->
 				</div>
 				<div class="column-actions">
 	                <ul class="action-list">
@@ -135,9 +139,9 @@
 			</div>
 			<div id="entry" class="content-column">
 				<div id="entry-content">
-					<h3>TITLE XXXXX</h3>
+					<!-- <h3>TITLE XXXXX</h3>
 					<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
-					<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+					<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p> -->
 				</div>
 				<div class="column-actions">
 	                <ul class="action-list">
@@ -151,6 +155,17 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="http://a.tbcdn.cn/s/kissy/1.3.0/seed-min.js"></script>
-	<script src="./assets/mobile.js"></script>
+	<script type="text/javascript" src="assets/index.js"></script>
+	<script type="text/javascript" src="./assets/mobile.js"></script>
+	<script type="text/javascript">
+	    (function (S) {
+	        S.use('reader')
+	    })(KISSY);
+	</script>
+	<!--<script type="text/javascript">
+	    (function (S) {
+	        S.use('mobile')
+	    })(KISSY);
+	</script>-->
 </body>
 </html>
