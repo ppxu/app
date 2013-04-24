@@ -1,5 +1,4 @@
 KISSY.add('mobile', function(S, N, E) {
-// KISSY.use('node, event', function(S, N, E) {
 
 	//动画集合
 	var animateCollection = {
@@ -105,7 +104,7 @@ KISSY.add('mobile', function(S, N, E) {
 			/*S.Anim(S.one('#list'), {
 				'margin-left': '320px'
 			}, 0.4, 'easeOutStrong', function() {*/
-			S.later(function(){
+			S.later(function() {
 				// S.one('#list').one('.column-actions').hide();
 				S.one('.navigator').removeClass('home').css('visibility', 'hidden');
 				S.one('#head').one('h1').html('Simple Reader');
@@ -127,7 +126,7 @@ KISSY.add('mobile', function(S, N, E) {
 			/*S.Anim(S.one('#entry'), {
 				'margin-left': '100%'
 			}, 0.4, 'easeOutStrong', function() {*/
-			S.later(function(){
+			S.later(function() {
 				// S.one('#entry').one('.column-actions').hide();
 				S.one('.navigator').replaceClass('main-list', 'home');
 				S.one('#head').one('h1').html(S.one('#head').one('h1').attr('list_title'));
@@ -170,7 +169,7 @@ KISSY.add('mobile', function(S, N, E) {
 				} else if (self.hasClass('star')) {
 					curTitle = '收藏';
 				} else {
-					curTitle = self.html().split('<')[0].trim();
+					curTitle = self.text().split('<')[0].trim();
 				}
 				pageSwitch.homeToList({
 					'title': curTitle
@@ -213,9 +212,9 @@ KISSY.add('mobile', function(S, N, E) {
 								alert('mark as star!');
 								self.isDown = false;
 								self.isMoving = 2;
-								S.one(self).one('.inner').animate({
-									'-webkit-transform': translateX(0)
-								}, 0.5, 'easeOutStrong');
+								S.one(self).one('.inner').css({
+									'-webkit-transform': 'translateX(0)'
+								});
 								S.one(self).one('.mark-star').animate({
 									'opacity': 0
 								}, 0.3);
@@ -246,7 +245,7 @@ KISSY.add('mobile', function(S, N, E) {
 				if (this.isMoving === 1 || this.isMoving === 2) {
 					return;
 				}
-				var curTitle = S.one(this).one('h2').text();
+				// var curTitle = S.one(this).one('h2').text();
 				pageSwitch.listToDetail({
 					'title': '文章详情'
 				});
@@ -299,7 +298,8 @@ KISSY.add('mobile', function(S, N, E) {
 
 	Mobile.init();
 
-}, { requires: [
-    'node',
-    'event'
-]});
+}, {
+	requires: [
+		'node',
+		'event']
+});

@@ -1,113 +1,112 @@
-KISSY.add('reader', function (S, DOM, Event, UA, IO) {
+KISSY.add('reader', function(S, DOM, Event, UA, IO) {
 
-    var MC = S.mix({}, S.EventTarget);  // Message Center
+    var MC = S.mix({}, S.EventTarget); // Message Center
 
 
     var JSONP = 'jsonp';
 
 
     var entryCache = {},
-        listCache = {};
+    listCache = {};
 
     var catList = DOM.get('#user-cat-list'),
         entryList = DOM.get('#list'),
         entryContent = DOM.get('#entry-content');
 
 
-    var renderList = function (list) {
-            currentList = list;
+    var renderList = function(list) {
+        currentList = list;
 
-            var entries = [];
-            S.each(list, function (entryInfo) {
-                var entry = '<li class="title level-1 {clazz}">' +
-                            '<div class="inner">' +
-                            '<h2><a href="{link}" data-id={id}>{title}</a></h2>' +
-                            '<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>' +
-                            '</div>' +
-                            '<span class="mark-read"><i class="icon-ok"></i></span>' +
-                            '<span class="mark-star"><i class="icon-heart"></i></span>' +
-                            '</li>';
+        var entries = [];
+        S.each(list, function(entryInfo) {
+            var entry = '<li class="title level-1 {clazz}">' +
+                '<div class="inner">' +
+                '<h2><a href="{link}" data-id={id}>{title}</a></h2>' +
+                '<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>' +
+                '</div>' +
+                '<span class="mark-read"><i class="icon-ok"></i></span>' +
+                '<span class="mark-star"><i class="icon-heart"></i></span>' +
+                '</li>';
 
-                entryInfo['clazz'] = entryInfo['is_unread'] ? 'unread' : 'read';
-                entry = S.substitute(entry, entryInfo);
-                entries.push(entry);
+            entryInfo['clazz'] = entryInfo['is_unread'] ? 'unread' : 'read';
+            entry = S.substitute(entry, entryInfo);
+            entries.push(entry);
 
-            });
+        });
 
-            entries = entries.join('');
+        entries = entries.join('');
 
-            DOM.html('.entry-list', entries);
+        DOM.html('.entry-list', entries);
 
-        },
-
-
-        renderEntry = function (id) {
-            if (entryCache[id]) {
-                _renderEntry(entryCache[id])
-            } else {
-                IO.get('http://10.232.133.213/item/' + id, function (entry) {
-                    entryCache[id] = entry;
-                    _renderEntry(entry);
-                }, JSONP);
-            }
-        },
-
-        renderCatList = function (list) {
-
-            var cats = [];
-            S.each(list, function (catInfo) {
-
-                var cat = '<li class="list-detail title level-1 {clazz}"><h2>' +
-                          '<a href="{link}" data-id={id}>{title}</a>' +
-                          '</h2>' +
-                          '</li>';
-
-                catInfo['clazz'] = catInfo['is_unread'] ? 'unread' : 'read';
-                cat = S.substitute(cat, catInfo);
-                cats.push(cat);
-
-            });
-
-            cats = cats.join('');
-            DOM.html(catList, cats);
-
-        },
-
-        _renderEntry = function (entry) {
-            DOM.html(entryContent, entry.description)
-        },
+    },
 
 
-        currentList = [],     // current entry list
+    renderEntry = function(id) {
+        if (entryCache[id]) {
+            _renderEntry(entryCache[id])
+        } else {
+            IO.get('http://10.232.133.213/item/' + id, function(entry) {
+                entryCache[id] = entry;
+                _renderEntry(entry);
+            }, JSONP);
+        }
+    },
+
+    renderCatList = function(list) {
+
+        var cats = [];
+        S.each(list, function(catInfo) {
+
+            var cat = '<li class="list-detail title level-1 {clazz}"><h2>' +
+                '<a href="{link}" data-id={id}>{title}</a>' +
+                '</h2>' +
+                '</li>';
+
+            catInfo['clazz'] = catInfo['is_unread'] ? 'unread' : 'read';
+            cat = S.substitute(cat, catInfo);
+            cats.push(cat);
+
+        });
+
+        cats = cats.join('');
+        DOM.html(catList, cats);
+
+    },
+
+    _renderEntry = function(entry) {
+        DOM.html(entryContent, entry.description)
+    },
 
 
-    // fetch entry list, including title/link
-        fetchList = function (id) {
+    currentList = [], // current entry list
+
+
+        // fetch entry list, including title/link
+        fetchList = function(id) {
             if (listCache[id]) {
                 renderList(listCache[id]);
-            } else
-            IO.get('http://10.232.133.213/channel/'+id,function(list){
+            } else IO.get('http://10.232.133.213/channel/' + id, function(list) {
                 renderList(list);
                 listCache[id] = list;
 
-            },JSONP);
+            }, JSONP);
 
         },
 
 
-    // toggle entry type in view
-        toggleView = function () {
+        // toggle entry type in view
+        toggleView = function() {
 
         },
 
 
-        setAll = function () {
+        setAll = function() {
 
         };
 
 
     // handle list clicks
-    Event.on(entryList, 'click', function (evt) {
+    Event.on(entryList, 'click', function(evt) {
 
         evt.preventDefault();
 
@@ -124,13 +123,13 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO) {
 
     });
 
-    MC.on('entry-list:click', function (evt) {
+    MC.on('entry-list:click', function(evt) {
         var entryId = evt.id;
         renderEntry(entryId);
     });
 
 
-    Event.on(catList, 'click', function (evt) {
+    Event.on(catList, 'click', function(evt) {
         evt.preventDefault();
         var target = evt.target,
             id;
@@ -146,17 +145,17 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO) {
     });
 
 
-    MC.on('cat-list:click', function (evt) {
+    MC.on('cat-list:click', function(evt) {
         var id = evt.id;
         fetchList(id);
     });
 
-    IO.get('http://10.232.133.213/items/', function (defaultList) {
+    IO.get('http://10.232.133.213/items/', function(defaultList) {
         renderList(defaultList);
 
     }, JSONP);
 
-    IO.get('http://10.232.133.213/tags/', function (cats) {
+    IO.get('http://10.232.133.213/tags/', function(cats) {
         var cats = cats.data;
         renderCatList(cats);
         MC.fire('home-loaded');
@@ -164,17 +163,19 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO) {
 
 
     if (S.DOM.viewportWidth() <= 480) {
-        MC.on('home-loaded', function(){
+        MC.on('home-loaded', function() {
             S.use('mobile');
         });
 
     }
 
-}, { requires: [
-    'dom',
-    'event',
-    'ua',
-    'ajax',
-    'xtemplate'
+}, {
+    requires: [
+        'dom',
+        'event',
+        'ua',
+        'ajax',
+        'xtemplate'
 
-]});
+    ]
+});
