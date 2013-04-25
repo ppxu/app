@@ -240,7 +240,7 @@ KISSY.add('mobile', function(S, N, E) {
 			});
 
 			S.one('#list').all('li').on(E.Gesture.tap, function(ev) {
-				ev.halt();
+				ev.preventDefault();
 				this.isDown = false;
 				if (this.isMoving === 1 || this.isMoving === 2) {
 					return;
