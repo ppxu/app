@@ -20,12 +20,6 @@ KISSY.add('mobile', function(S, N, E) {
 				}, 100 * index);
 			});
 		},
-		hideToMiddle: function(element) {
-			var lists = element.all('.level-1');
-			lists.each(function(el) {
-				animateCollection.rotateVertical(el, 90);
-			});
-		},
 		middleToShow: function(element) {
 			element.show();
 			window.scrollTo(0, 1);
@@ -34,14 +28,20 @@ KISSY.add('mobile', function(S, N, E) {
 				animateCollection.rotateVertical(el, 0);
 			});
 		},
+		hideToMiddle: function(element) {
+			var lists = element.all('.level-1');
+			lists.each(function(el) {
+				animateCollection.rotateVertical(el, 90);
+			});
+		},
 		translateHorizon: function(element, value) {
 			var oldStyle = element.style('-webkit-transform');
 			var newStyle;
-			if(oldStyle.indexOf('translateX') !== -1) {
-				newStyle = oldStyle.replace(/(.*\()\d+(px\).*)/, '$1'+value+'$2');
+			if(oldStyle.indexOf('rotateX') === -1) {
+				newStyle = 'translateX(' + value + 'px)';
 			}
 			else {
-				newStyle = oldStyle + ' translateX(' + value + 'px)';
+				newStyle = oldStyle.replace(/(.*\()-?\d+(px\).*)/, '$1'+value+'$2');
 			}
 			element.style('-webkit-transform', newStyle);
 			return element;
@@ -75,16 +75,16 @@ KISSY.add('mobile', function(S, N, E) {
 			ev.callback();
 		}, 600);
 	});
+	oCustomEvt.on('middleToShow', function(ev) {
+		animateCollection.middleToShow(ev.node);
+		ev.callback && S.later(function() {
+			ev.callback();
+		}, 400);
+	});
 	oCustomEvt.on('hideToMiddle', function(ev) {
 		animateCollection.hideToMiddle(ev.node);
 		ev.callback && S.later(function() {
 			ev.node.hide();
-			ev.callback();
-		}, 400);
-	});
-	oCustomEvt.on('middleToShow', function(ev) {
-		animateCollection.hideToMiddle(ev.node);
-		ev.callback && S.later(function() {
 			ev.callback();
 		}, 400);
 	});
@@ -130,8 +130,8 @@ KISSY.add('mobile', function(S, N, E) {
 				// S.one('#list').one('.column-actions').hide();
 				S.one('.navigator').removeClass('home').css('visibility', 'hidden');
 				S.one('#head').one('h1').html('Simple Reader');
-				S.one('#cats').all('span.down').replaceClass('down', 'right');
-				S.one('#cats').all('ul.level-2').hide();
+				// S.one('#cats').all('span.down').replaceClass('down', 'right');
+				// S.one('#cats').all('ul.level-2').hide();
 				oCustomEvt.fire('leftToShow', {
 					node: S.one('#cats'),
 					callback: function() {
@@ -171,12 +171,12 @@ KISSY.add('mobile', function(S, N, E) {
 
 			pageSwitch.loadHome();
 
-			S.all('li.catelog').on(E.Gesture.tap, function(ev) {
+			/*S.all('li.catelog').on(E.Gesture.tap, function(ev) {
 				S.one('.mobile-search').hide();
 				var arrow = S.one(this).one('i');
 				arrow.hasClass('down') ? arrow.replaceClass('down', 'right') : arrow.removeClass('right').addClass('down');
 				S.one(this).one('ul').slideToggle(0.4);
-			});
+			});*/
 
 			S.one('li.today').add('li.all').add('li.star').add('li.list-detail').on(E.Gesture.tap, function(ev) {
 				S.one('.mobile-search').hide();
@@ -189,7 +189,7 @@ KISSY.add('mobile', function(S, N, E) {
 				} else if (self.hasClass('star')) {
 					curTitle = '收藏';
 				} else {
-					curTitle = self.text().split('<')[0].trim();
+					curTitle = self.text();
 				}
 				pageSwitch.homeToList({
 					'title': curTitle
@@ -212,38 +212,56 @@ KISSY.add('mobile', function(S, N, E) {
 					self.deltaX = self.currentX - self.originX;
 					self.deltaY = self.currentY - self.originY;
 					if (Math.abs(self.deltaY) <= 20) {
-						self.deltaX % 3 === 0 && animateCollection.translateHorizon(S.one(self).one('.inner'), self.deltaX / 3);
 						if (self.deltaX > 0) {
-							S.one(self).one('.mark-read').css('opacity', self.deltaX / 150);
-							if (self.deltaX >= 150) {
+							S.one(self).one('.mark-read').css('opacity', self.deltaX / 60);
+							if(self.deltaX <= 60){
+								animateCollection.translateHorizon(S.one(self).one('.inner'), self.deltaX);
+							}
+							else if (self.deltaX <= 160) {
+								animateCollection.translateHorizon(S.one(self).one('.inner'), 60+(self.deltaX-60)/5);
 								S.one(self).one('.mark-read').css({
 									'color': '#0f0'
 								});
 							}
+							else if(self.deltaX <= 300){
+								animateCollection.translateHorizon(S.one(self).one('.inner'), 80+(self.deltaX-160)/7);
+							}
 						} else {
-							S.one(self).one('.mark-star').css('opacity', -self.deltaX / 150);
-							if (self.deltaX <= -150) {
+							S.one(self).one('.mark-star').css('opacity', -self.deltaX / 60);
+							if(self.deltaX >= -60){
+								animateCollection.translateHorizon(S.one(self).one('.inner'), self.deltaX);
+							}
+							else if (self.deltaX >= -160) {
+								animateCollection.translateHorizon(S.one(self).one('.inner'), -60+(self.deltaX+60)/5);
 								S.one(self).one('.mark-star').css({
 									'color': '#f00'
 								});
+							}
+							else if(self.deltaX >= -300){
+								animateCollection.translateHorizon(S.one(self).one('.inner'), -80+(self.deltaX+160)/7);
 							}
 						}
 					}
 				}
 			});
 			S.one('#list').all('li').on(E.Gesture.end, function(ev) {
-				if (this.isMoving === 1) {
-					this.isDown = false;
-					this.isMoving = 2;
-					S.one(this).one('.inner').css({
-						'-webkit-transform': 'translateX(0)'
-					});
-					S.one(this).one('.mark-read').animate({
-						'opacity': 0
+				var self = this;
+				if (self.isMoving === 1) {
+					self.isDown = false;
+					self.isMoving = 2;
+					S.one(self).one('.inner').addClass('webkit-transition');
+					animateCollection.translateHorizon(S.one(self).one('.inner'), 0);
+					S.one(self).one('.mark-read').animate({
+						'opacity': 0,
+						'color': '#555'
 					}, 0.3);
-					S.one(this).one('.mark-star').animate({
-						'opacity': 0
+					S.one(self).one('.mark-star').animate({
+						'opacity': 0,
+						'color': '#555'
 					}, 0.3);
+					S.later(function(){
+						S.one(self).one('.inner').removeClass('webkit-transition');
+					}, 500);
 				}
 			});
 
@@ -254,9 +272,11 @@ KISSY.add('mobile', function(S, N, E) {
 					return;
 				}
 				// var curTitle = S.one(this).one('h2').text();
-				pageSwitch.listToDetail({
-					'title': '文章详情'
-				});
+				S.later(function(){
+					pageSwitch.listToDetail({
+						'title': '文章详情'
+					});
+				}, 1000);
 			});
 
 			S.one('.navigator').on(E.Gesture.tap, function(ev) {
