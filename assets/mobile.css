@@ -205,24 +205,6 @@ ul {
 	0% {-webkit-transform: rotate(90deg);}
 	100% {-webkit-transform: rotate(0deg);}
 }
-.show {
-	-webkit-animation-name: show-to-right;
-	-webkit-animation-duration: .4s;
-	-webkit-animation-timing-function: ease;
-}
-@-webkit-keyframes show-to-right {
-	0% {margin-left: -320px;}
-	100% {margin-left: 0;}
-}
-.hide {
-	-webkit-animation-name: hide-to-left;
-	-webkit-animation-duration: .4s;
-	-webkit-animation-timing-function: ease;
-}
-@-webkit-keyframes hide-to-left {
-	0% {margin-left: 0;}
-	100% {margin-left: -320px;}
-}
 #content #list .entries {
 	margin-bottom: 15px;
 }
@@ -281,7 +263,7 @@ ul {
 }
 #content #list li .mark-star {
 	right: -15px;
-	color: rgb(235, 120, 120);
+	color: #555;
 }
 #content #list .column-actions {
 	width: 100%;
