@@ -59,33 +59,27 @@ KISSY.add('mobile', function(S, N, E) {
 			return element;
 		},
 		listTouchMove: function(list, value){
-			if (list.value > 0) {
-				S.one(list).one('.mark-read').css('opacity', list.value / 60);
-				if(list.value <= 40){
-					animateCollection.translateHorizon(S.one(list).one('.inner'), list.value);
+			if (value > 0) {
+				S.one(list).one('.mark-read').css('opacity', value / 60);
+				if(value <= 60){
+					animateCollection.translateHorizon(S.one(list).one('.inner'), value);
 				}
-				else if (list.value <= 140) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), 40+(list.value-60)/4);
+				else if (value <= 300) {
+					animateCollection.translateHorizon(S.one(list).one('.inner'), 60+(value-60)/12);
 					S.one(list).one('.mark-read').css({
 						'color': '#0f0'
 					});
 				}
-				else if(list.value <= 300){
-					animateCollection.translateHorizon(S.one(list).one('.inner'), 60+(list.value-140)/8);
-				}
 			} else {
-				S.one(list).one('.mark-star').css('opacity', -list.value / 60);
-				if(list.value >= -40){
-					animateCollection.translateHorizon(S.one(list).one('.inner'), list.value);
+				S.one(list).one('.mark-star').css('opacity', -value / 60);
+				if(value >= -60){
+					animateCollection.translateHorizon(S.one(list).one('.inner'), value);
 				}
-				else if (list.value >= -140) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), -40+(list.value+60)/4);
+				else if (value >= -300) {
+					animateCollection.translateHorizon(S.one(list).one('.inner'), -60+(value+60)/12);
 					S.one(list).one('.mark-star').css({
 						'color': '#f00'
 					});
-				}
-				else if(list.value >= -300){
-					animateCollection.translateHorizon(S.one(list).one('.inner'), -60+(list.value+140)/8);
 				}
 			}
 		}
@@ -243,7 +237,7 @@ KISSY.add('mobile', function(S, N, E) {
 					self.deltaX = self.currentX - self.originX;
 					self.deltaY = self.currentY - self.originY;
 					if (Math.abs(self.deltaY) <= 20) {
-						listTouchMove(self, deltaX);
+						animateCollection.listTouchMove(self, self.deltaX);
 					}
 				}
 			});
