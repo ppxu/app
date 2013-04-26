@@ -57,6 +57,37 @@ KISSY.add('mobile', function(S, N, E) {
 			}
 			element.style('-webkit-transform', newStyle);
 			return element;
+		},
+		listTouchMove: function(list, value){
+			if (list.value > 0) {
+				S.one(list).one('.mark-read').css('opacity', list.value / 60);
+				if(list.value <= 40){
+					animateCollection.translateHorizon(S.one(list).one('.inner'), list.value);
+				}
+				else if (list.value <= 140) {
+					animateCollection.translateHorizon(S.one(list).one('.inner'), 40+(list.value-60)/4);
+					S.one(list).one('.mark-read').css({
+						'color': '#0f0'
+					});
+				}
+				else if(list.value <= 300){
+					animateCollection.translateHorizon(S.one(list).one('.inner'), 60+(list.value-140)/8);
+				}
+			} else {
+				S.one(list).one('.mark-star').css('opacity', -list.value / 60);
+				if(list.value >= -40){
+					animateCollection.translateHorizon(S.one(list).one('.inner'), list.value);
+				}
+				else if (list.value >= -140) {
+					animateCollection.translateHorizon(S.one(list).one('.inner'), -40+(list.value+60)/4);
+					S.one(list).one('.mark-star').css({
+						'color': '#f00'
+					});
+				}
+				else if(list.value >= -300){
+					animateCollection.translateHorizon(S.one(list).one('.inner'), -60+(list.value+140)/8);
+				}
+			}
 		}
 	};
 
@@ -212,35 +243,7 @@ KISSY.add('mobile', function(S, N, E) {
 					self.deltaX = self.currentX - self.originX;
 					self.deltaY = self.currentY - self.originY;
 					if (Math.abs(self.deltaY) <= 20) {
-						if (self.deltaX > 0) {
-							S.one(self).one('.mark-read').css('opacity', self.deltaX / 60);
-							if(self.deltaX <= 60){
-								animateCollection.translateHorizon(S.one(self).one('.inner'), self.deltaX);
-							}
-							else if (self.deltaX <= 160) {
-								animateCollection.translateHorizon(S.one(self).one('.inner'), 60+(self.deltaX-60)/5);
-								S.one(self).one('.mark-read').css({
-									'color': '#0f0'
-								});
-							}
-							else if(self.deltaX <= 300){
-								animateCollection.translateHorizon(S.one(self).one('.inner'), 80+(self.deltaX-160)/7);
-							}
-						} else {
-							S.one(self).one('.mark-star').css('opacity', -self.deltaX / 60);
-							if(self.deltaX >= -60){
-								animateCollection.translateHorizon(S.one(self).one('.inner'), self.deltaX);
-							}
-							else if (self.deltaX >= -160) {
-								animateCollection.translateHorizon(S.one(self).one('.inner'), -60+(self.deltaX+60)/5);
-								S.one(self).one('.mark-star').css({
-									'color': '#f00'
-								});
-							}
-							else if(self.deltaX >= -300){
-								animateCollection.translateHorizon(S.one(self).one('.inner'), -80+(self.deltaX+160)/7);
-							}
-						}
+						listTouchMove(self, deltaX);
 					}
 				}
 			});
