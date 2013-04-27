@@ -56,26 +56,31 @@ KISSY.add('mobile', function(S, N, E) {
 			element.style('-webkit-transform', newStyle);
 			return element;
 		},
-		listTouchMove: function(list, value) {
+		listTouchMove: function(list, value, time) {
+			var self = S.one(list);
 			if (value > 0) {
-				S.one(list).one('.mark-read').css('opacity', value / 60);
+				self.one('.mark-read').css('opacity', value / 60);
 				if (value <= 60) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), value);
+					animateCollection.translateHorizon(self.one('.inner'), value);
 				} else if (value <= 300) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), 60 + (value - 60) / 12);
-					S.one(list).one('.mark-read').css({
-						'color': '#0f0'
-					});
+					animateCollection.translateHorizon(self.one('.inner'), 60 + (value - 60) / 12);
+					if(time > 500) {
+						oCustomEvt.fire('listMarkRead', {
+							node: self
+						});
+					}
 				}
 			} else {
-				S.one(list).one('.mark-star').css('opacity', -value / 60);
+				self.one('.mark-star').css('opacity', -value / 60);
 				if (value >= -60) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), value);
+					animateCollection.translateHorizon(self.one('.inner'), value);
 				} else if (value >= -300) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), -60 + (value + 60) / 12);
-					S.one(list).one('.mark-star').css({
-						'color': '#f00'
-					});
+					animateCollection.translateHorizon(self.one('.inner'), -60 + (value + 60) / 12);
+					if(time > 500) {
+						oCustomEvt.fire('listMarkStar', {
+							node: self
+						});
+					}
 				}
 			}
 		}
@@ -91,9 +96,9 @@ KISSY.add('mobile', function(S, N, E) {
 	});
 	oCustomEvt.on('hideToLeft', function(ev) {
 		animateCollection.hideToLeft(ev.node);
-		ev.callback && S.later(function() {
+		S.later(function() {
 			ev.node.hide();
-			ev.callback();
+			ev.callback && ev.callback();
 		}, 600);
 	});
 	oCustomEvt.on('middleToShow', function(ev) {
@@ -104,10 +109,20 @@ KISSY.add('mobile', function(S, N, E) {
 	});
 	oCustomEvt.on('hideToMiddle', function(ev) {
 		animateCollection.hideToMiddle(ev.node);
-		ev.callback && S.later(function() {
+		S.later(function() {
 			ev.node.hide();
-			ev.callback();
+			ev.callback && ev.callback();
 		}, 400);
+	});
+	oCustomEvt.on('listMarkRead', function(ev) {
+		ev.node.one('.mark-read').css({
+			'color': '#0f0'
+		});
+	});
+	oCustomEvt.on('listMarkStar', function(ev) {
+		ev.node.one('.mark-star').css({
+			'color': '#f00'
+		});
 	});
 
 	//页面切换
@@ -223,6 +238,7 @@ KISSY.add('mobile', function(S, N, E) {
 				this.isMoving = 0;
 				this.originX = ev.pageX;
 				this.originY = ev.pageY;
+				this.originT = S.now();
 			});
 			S.one('#list').all('li').on(E.Gesture.move, function(ev) {
 				var self = this;
@@ -230,10 +246,12 @@ KISSY.add('mobile', function(S, N, E) {
 					self.isMoving = 1;
 					self.currentX = ev.pageX;
 					self.currentY = ev.pageY;
+					self.currentT = S.now();
 					self.deltaX = self.currentX - self.originX;
 					self.deltaY = self.currentY - self.originY;
+					self.deltaT = self.currentT - self.originT;
 					if (Math.abs(self.deltaY) <= 20) {
-						animateCollection.listTouchMove(self, self.deltaX);
+						animateCollection.listTouchMove(self, self.deltaX, self.deltaT);
 					}
 				}
 			});
