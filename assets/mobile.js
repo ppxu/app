@@ -37,11 +37,10 @@ KISSY.add('mobile', function(S, N, E) {
 		translateHorizon: function(element, value) {
 			var oldStyle = element.style('-webkit-transform');
 			var newStyle;
-			if(oldStyle.indexOf('rotateX') === -1) {
+			if (oldStyle.indexOf('rotateX') === -1) {
 				newStyle = 'translateX(' + value + 'px)';
-			}
-			else {
-				newStyle = oldStyle.replace(/(.*\()-?\d+(px\).*)/, '$1'+value+'$2');
+			} else {
+				newStyle = oldStyle.replace(/(.*\()-?\d+(px\).*)/, '$1' + value + '$2');
 			}
 			element.style('-webkit-transform', newStyle);
 			return element;
@@ -49,34 +48,31 @@ KISSY.add('mobile', function(S, N, E) {
 		rotateVertical: function(element, value) {
 			var oldStyle = element.style('-webkit-transform');
 			var newStyle;
-			if(oldStyle.indexOf('rotateX') !== -1) {
-				newStyle = oldStyle.replace(/(.*\()\d+(deg\).*)/, '$1'+value+'$2');
-			}
-			else {
+			if (oldStyle.indexOf('rotateX') !== -1) {
+				newStyle = oldStyle.replace(/(.*\()\d+(deg\).*)/, '$1' + value + '$2');
+			} else {
 				newStyle = oldStyle + ' rotateX(' + value + 'deg)';
 			}
 			element.style('-webkit-transform', newStyle);
 			return element;
 		},
-		listTouchMove: function(list, value){
+		listTouchMove: function(list, value) {
 			if (value > 0) {
 				S.one(list).one('.mark-read').css('opacity', value / 60);
-				if(value <= 60){
+				if (value <= 60) {
 					animateCollection.translateHorizon(S.one(list).one('.inner'), value);
-				}
-				else if (value <= 300) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), 60+(value-60)/12);
+				} else if (value <= 300) {
+					animateCollection.translateHorizon(S.one(list).one('.inner'), 60 + (value - 60) / 12);
 					S.one(list).one('.mark-read').css({
 						'color': '#0f0'
 					});
 				}
 			} else {
 				S.one(list).one('.mark-star').css('opacity', -value / 60);
-				if(value >= -60){
+				if (value >= -60) {
 					animateCollection.translateHorizon(S.one(list).one('.inner'), value);
-				}
-				else if (value >= -300) {
-					animateCollection.translateHorizon(S.one(list).one('.inner'), -60+(value+60)/12);
+				} else if (value >= -300) {
+					animateCollection.translateHorizon(S.one(list).one('.inner'), -60 + (value + 60) / 12);
 					S.one(list).one('.mark-star').css({
 						'color': '#f00'
 					});
@@ -256,7 +252,7 @@ KISSY.add('mobile', function(S, N, E) {
 						'opacity': 0,
 						'color': '#555'
 					}, 0.3);
-					S.later(function(){
+					S.later(function() {
 						S.one(self).one('.inner').removeClass('webkit-transition');
 					}, 500);
 				}
@@ -269,7 +265,7 @@ KISSY.add('mobile', function(S, N, E) {
 					return;
 				}
 				// var curTitle = S.one(this).one('h2').text();
-				S.later(function(){
+				S.later(function() {
 					pageSwitch.listToDetail({
 						'title': '文章详情'
 					});
