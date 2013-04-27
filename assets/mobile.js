@@ -137,8 +137,7 @@ KISSY.add('mobile', function(S, N, E) {
 				node: S.one('#cats'),
 				callback: function() {
 					S.one('.navigator').addClass('home').css('visibility', 'visible');
-					S.one('#head').one('h1').html(cfg.title);
-					S.one('#head').one('h1').attr('list_title', cfg.title);
+					S.one('#head').one('h1').html(cfg.title).attr('list_title', cfg.title);
 					// S.one('#list').one('.column-actions').show();
 					oCustomEvt.fire('leftToShow', {
 						node: S.one('#list')
@@ -208,14 +207,12 @@ KISSY.add('mobile', function(S, N, E) {
 			pageSwitch.loadHome();
 
 			/*S.all('li.catelog').on(E.Gesture.tap, function(ev) {
-				S.one('.mobile-search').hide();
 				var arrow = S.one(this).one('i');
 				arrow.hasClass('down') ? arrow.replaceClass('down', 'right') : arrow.removeClass('right').addClass('down');
 				S.one(this).one('ul').slideToggle(0.4);
 			});*/
 
 			S.one('li.today').add('li.all').add('li.star').add('li.list-detail').on(E.Gesture.tap, function(ev) {
-				S.one('.mobile-search').hide();
 				var curTitle;
 				var self = S.one(this);
 				if (self.hasClass('today')) {
@@ -233,7 +230,6 @@ KISSY.add('mobile', function(S, N, E) {
 			});
 
 			S.one('#list').all('li').on(E.Gesture.start, function(ev) {
-				S.one('.mobile-search').hide();
 				this.isDown = true;
 				this.isMoving = 0;
 				this.originX = ev.pageX;
@@ -291,7 +287,6 @@ KISSY.add('mobile', function(S, N, E) {
 			});
 
 			S.one('.navigator').on(E.Gesture.tap, function(ev) {
-				S.one('.mobile-search').hide();
 				var self = S.one(this);
 				if (self.hasClass('home')) {
 					pageSwitch.listToHome();
@@ -300,26 +295,24 @@ KISSY.add('mobile', function(S, N, E) {
 				}
 			});
 
-			E.on('#list', "swipe", function(e) {
+			S.one('#list').on('swipe', function(e) {
 				if (e.direction === 'right' && e.distance >= 100 && e.duration <= 0.5) {
 					pageSwitch.listToHome();
 				}
 			});
 
-			E.on('#entry', "swipe", function(e) {
+			S.one('#entry').on('swipe', function(e) {
 				if (e.direction === 'right' && e.distance >= 100 && e.duration <= 0.5) {
 					pageSwitch.detailToList();
 				}
 			});
 
 			S.one('.toggle-read').on(E.Gesture.tap, function(ev) {
-				S.one('.mobile-search').hide();
 				var el = S.one(this).one('i');
 				el.hasClass('icon-circle') ? el.replaceClass('icon-circle', 'icon-circle-blank') : el.replaceClass('icon-circle-blank', 'icon-circle');
 			});
 
 			S.one('.toggle-star').on(E.Gesture.tap, function(ev) {
-				S.one('.mobile-search').hide();
 				var el = S.one(this).one('i');
 				el.hasClass('icon-heart-empty') ? el.replaceClass('icon-heart-empty', 'icon-heart') : el.replaceClass('icon-heart', 'icon-heart-empty');
 			});
