@@ -3,6 +3,9 @@ KISSY.add('mobile', function(S, N, E) {
 	var CATS_AREA = S.one('#cats');
 	var LIST_AREA = S.one('#list');
 	var ENTRY_AREA = S.one('#entry');
+	var NAVIGATOR = S.one('.navigator');
+	var PAGE_TITLE = S.one('#head').one('h1');
+	var SEARCH_AREA = S.one('.mobile-search');
 
 	//动画集合
 	var animateCollection = {
@@ -62,12 +65,13 @@ KISSY.add('mobile', function(S, N, E) {
 		},
 		listTouchMove: function(list, value, time) {
 			var self = S.one(list);
+			var innerNode = self.one('.inner');
 			if (value > 0) {
 				self.one('.mark-read').css('opacity', value / 60);
 				if (value <= 60) {
-					animateCollection.translateHorizon(self.one('.inner'), value);
+					animateCollection.translateHorizon(innerNode, value);
 				} else if (value <= 300) {
-					animateCollection.translateHorizon(self.one('.inner'), 60 + (value - 60) / 12);
+					animateCollection.translateHorizon(innerNode, 60 + (value - 60) / 12);
 					if(time > 500) {
 						oCustomEvt.fire('listMarkRead', {
 							node: self
@@ -77,9 +81,9 @@ KISSY.add('mobile', function(S, N, E) {
 			} else {
 				self.one('.mark-star').css('opacity', -value / 60);
 				if (value >= -60) {
-					animateCollection.translateHorizon(self.one('.inner'), value);
+					animateCollection.translateHorizon(innerNode, value);
 				} else if (value >= -300) {
-					animateCollection.translateHorizon(self.one('.inner'), -60 + (value + 60) / 12);
+					animateCollection.translateHorizon(innerNode, -60 + (value + 60) / 12);
 					if(time > 500) {
 						oCustomEvt.fire('listMarkStar', {
 							node: self
@@ -140,8 +144,8 @@ KISSY.add('mobile', function(S, N, E) {
 			oCustomEvt.fire('hideToLeft', {
 				node: CATS_AREA,
 				callback: function() {
-					S.one('.navigator').addClass('home').css('visibility', 'visible');
-					S.one('#head').one('h1').html(cfg.title).attr('list_title', cfg.title);
+					NAVIGATOR.addClass('home').css('visibility', 'visible');
+					PAGE_TITLE.html(cfg.title).attr('list_title', cfg.title);
 					// LIST_AREA.one('.column-actions').show();
 					oCustomEvt.fire('leftToShow', {
 						node: LIST_AREA
@@ -154,8 +158,8 @@ KISSY.add('mobile', function(S, N, E) {
 				node: LIST_AREA,
 				callback: function() {
 					// ENTRY_AREA.one('.column-actions').show();
-					S.one('.navigator').replaceClass('home', 'main-list');
-					S.one('#head').one('h1').html(cfg.title);
+					NAVIGATOR.replaceClass('home', 'main-list');
+					PAGE_TITLE.html(cfg.title);
 					ENTRY_AREA.fadeIn();
 				}
 			});
@@ -167,8 +171,8 @@ KISSY.add('mobile', function(S, N, E) {
 			}, 0.4, 'easeOutStrong', function() {*/
 			S.later(function() {
 				// LIST_AREA.one('.column-actions').hide();
-				S.one('.navigator').removeClass('home').css('visibility', 'hidden');
-				S.one('#head').one('h1').html('Simple Reader');
+				NAVIGATOR.removeClass('home').css('visibility', 'hidden');
+				PAGE_TITLE.html('Simple Reader');
 				// CATS_AREA.all('span.down').replaceClass('down', 'right');
 				// CATS_AREA.all('ul.level-2').hide();
 				oCustomEvt.fire('leftToShow', {
@@ -188,8 +192,8 @@ KISSY.add('mobile', function(S, N, E) {
 			}, 0.4, 'easeOutStrong', function() {*/
 			S.later(function() {
 				// ENTRY_AREA.one('.column-actions').hide();
-				S.one('.navigator').replaceClass('main-list', 'home');
-				S.one('#head').one('h1').html(S.one('#head').one('h1').attr('list_title'));
+				NAVIGATOR.replaceClass('main-list', 'home');
+				PAGE_TITLE.html(PAGE_TITLE.attr('list_title'));
 				oCustomEvt.fire('middleToShow', {
 					node: LIST_AREA,
 					callback: function() {
@@ -287,10 +291,10 @@ KISSY.add('mobile', function(S, N, E) {
 					pageSwitch.listToDetail({
 						'title': '文章详情'
 					});
-				}, 1000);
+				}, 500);
 			});
 
-			S.one('.navigator').on(E.Gesture.tap, function(ev) {
+			NAVIGATOR.on(E.Gesture.tap, function(ev) {
 				var self = S.one(this);
 				if (self.hasClass('home')) {
 					pageSwitch.listToHome();
@@ -322,11 +326,11 @@ KISSY.add('mobile', function(S, N, E) {
 			});
 
 			S.one('.search').on(E.Gesture.tap, function(ev) {
-				S.one('.mobile-search').slideToggle(0.4);
+				SEARCH_AREA.slideToggle(0.4);
 			});
 
 			S.one('.J_Cancel').on(E.Gesture.tap, function(ev) {
-				S.one('.mobile-search').fadeOut(0.4);
+				SEARCH_AREA.fadeOut(0.4);
 			});
 
 		}
