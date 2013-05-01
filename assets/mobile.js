@@ -44,10 +44,10 @@ KISSY.add('mobile', function(S, N, E) {
 		translateHorizon: function(element, value) {
 			var oldStyle = element.style('-webkit-transform');
 			var newStyle;
-			if (oldStyle.indexOf('rotateX') === -1) {
-				newStyle = 'translateX(' + value + 'px)';
+			if (oldStyle.indexOf('rotate3d') === -1) {
+				newStyle = 'translate3d(' + value + 'px,0,0)';
 			} else {
-				newStyle = oldStyle.replace(/(.*\()-?\d+(px\).*)/, '$1' + value + '$2');
+				newStyle = oldStyle.replace(/(.*\()\d+(px.*)/, '$1' + value + '$2');
 			}
 			element.style('-webkit-transform', newStyle);
 			return element;
@@ -55,10 +55,10 @@ KISSY.add('mobile', function(S, N, E) {
 		rotateVertical: function(element, value) {
 			var oldStyle = element.style('-webkit-transform');
 			var newStyle;
-			if (oldStyle.indexOf('rotateX') !== -1) {
-				newStyle = oldStyle.replace(/(.*\()\d+(deg\).*)/, '$1' + value + '$2');
+			if (oldStyle.indexOf('rotate3d') !== -1) {
+				newStyle = oldStyle.replace(/(.*\D)\d+(deg\).*)/, '$1' + value + '$2');
 			} else {
-				newStyle = oldStyle + ' rotateX(' + value + 'deg)';
+				newStyle = oldStyle + ' rotate3d(1,0,0,' + value + 'deg)';
 			}
 			element.style('-webkit-transform', newStyle);
 			return element;
@@ -72,7 +72,7 @@ KISSY.add('mobile', function(S, N, E) {
 					animateCollection.translateHorizon(innerNode, value);
 				} else if (value <= 300) {
 					animateCollection.translateHorizon(innerNode, 60 + (value - 60) / 12);
-					if(time > 500) {
+					if (time > 500) {
 						oCustomEvt.fire('listMarkRead', {
 							node: self
 						});
@@ -84,7 +84,7 @@ KISSY.add('mobile', function(S, N, E) {
 					animateCollection.translateHorizon(innerNode, value);
 				} else if (value >= -300) {
 					animateCollection.translateHorizon(innerNode, -60 + (value + 60) / 12);
-					if(time > 500) {
+					if (time > 500) {
 						oCustomEvt.fire('listMarkStar', {
 							node: self
 						});
