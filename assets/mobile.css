@@ -22,15 +22,16 @@ ul {
 	line-height: 40px;
 	background-color: #eee;
 	position: fixed;
+	top: 0;
 	z-index: 9;
 	box-shadow: 0 5px 10px #fff;
 }
 #head .navigator {
 	position: absolute;
 	top: 0;
-	left: 0;
 	text-indent: 10px;
-	line-height: 42px;
+	line-height: 44px;
+	padding-right: 20px;
 	visibility: hidden;
 }
 #head .navigator i {
@@ -43,7 +44,7 @@ ul {
 }
 #head h1 {
 	font-size: 2.4rem;
-	font-weight: normal;
+	font-weight: 200;
 	text-align: center;
 }
 #head #search {
@@ -51,25 +52,31 @@ ul {
 }
 #head .search {
 	position: absolute;
+	padding-left: 20px;
+	padding-right: 20px;
 	top: 0;
-	right: 10px;
+	right: 0;
+	color: #888;
+}
+#head .search-active {
+	color: #333;
+	background-color: rgb(195,195,195);
 }
 #head .mobile-search {
-	display: none;
 	position: absolute;
 	top: 40px;
 	left: 0;
 	padding: 20px 10% 40px;
 	width: 80%;
 	height: 100px;
-	background-color: rgba(170,170,170,0.9);
+	background-color: rgba(170,170,170,0.7);
+	-webkit-transition: -webkit-transform 0.4s;
+	margin-top: -200px;
 }
 #head .mobile-search .light-search-input {
 	background-image: none;
 	padding-left: 5px;
 	border-radius: 10px;
-}
-#head .mobile-search input {
 	width: 100%;
 }
 #head .mobile-search a {

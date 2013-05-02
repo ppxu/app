@@ -6,6 +6,7 @@ KISSY.add('mobile', function(S, N, E) {
 	var NAVIGATOR = S.one('.navigator');
 	var PAGE_TITLE = S.one('#head').one('h1');
 	var SEARCH_AREA = S.one('.mobile-search');
+	var SEARCH_BTN = S.one('.search');
 
 	//动画集合
 	var animateCollection = {
@@ -49,6 +50,11 @@ KISSY.add('mobile', function(S, N, E) {
 			} else {
 				newStyle = oldStyle.replace(/(.*\()\d+(px.*)/, '$1' + value + '$2');
 			}
+			element.style('-webkit-transform', newStyle);
+			return element;
+		},
+		translateVertical: function(element, value) {
+			newStyle = 'translate3d(0,' + value + 'px,0)';
 			element.style('-webkit-transform', newStyle);
 			return element;
 		},
@@ -325,12 +331,14 @@ KISSY.add('mobile', function(S, N, E) {
 				el.hasClass('icon-heart-empty') ? el.replaceClass('icon-heart-empty', 'icon-heart') : el.replaceClass('icon-heart', 'icon-heart-empty');
 			});
 
-			S.one('.search').on(E.Gesture.tap, function(ev) {
-				SEARCH_AREA.slideToggle(0.4);
+			SEARCH_BTN.on(E.Gesture.tap, function(ev) {
+				animateCollection.translateVertical(SEARCH_AREA, 200);
+				SEARCH_BTN.addClass('search-active');
 			});
 
 			S.one('.J_Cancel').on(E.Gesture.tap, function(ev) {
-				SEARCH_AREA.fadeOut(0.4);
+				animateCollection.translateVertical(SEARCH_AREA, 0);
+				SEARCH_BTN.removeClass('search-active');
 			});
 
 		}
