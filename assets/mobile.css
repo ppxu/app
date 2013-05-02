@@ -109,7 +109,6 @@ ul {
 	margin-bottom: 10px;
 	float: left;
 	clear: left;
-	height: 100%;
 	font-size: 2.4rem;
 	padding-left: 20px;
 	padding-right: 35px;
@@ -179,13 +178,14 @@ ul {
 	padding-right: 10px;
 	font-size: 2rem;
 }
-#content #cats li.catelog ul li .unread-count {
+#content #cats li.catelog ul li .unread-count,
+#content #cats li.list-detail .unread-count {
 	left: 5px;
 	top: -10px;
 	width: 20px;
 	height: 20px;
 	line-height: 20px;
-	background-color: rgb(60, 241, 248);
+	background-color: rgb(134, 250, 255);
 	border-radius: 20px;
 	padding: 0;
 	font-size: 1.4rem;
