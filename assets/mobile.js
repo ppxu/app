@@ -152,9 +152,10 @@ KISSY.add('mobile', function(S, N, E) {
 				callback: function() {
 					NAVIGATOR.addClass('home').css('visibility', 'visible');
 					PAGE_TITLE.html(cfg.title).attr('list_title', cfg.title);
-					// LIST_AREA.one('.column-actions').show();
+					LIST_AREA.show();
+					LIST_AREA.one('.column-actions').hide().slideDown(0.4);
 					oCustomEvt.fire('leftToShow', {
-						node: LIST_AREA
+						node: LIST_AREA.one('.entries')
 					});
 				}
 			});
@@ -171,12 +172,12 @@ KISSY.add('mobile', function(S, N, E) {
 			});
 		},
 		listToHome: function() {
-			animateCollection.translateHorizon(LIST_AREA, 320);
+			animateCollection.translateHorizon(LIST_AREA.one('.entries'), 320);
 			/*S.Anim(LIST_AREA, {
 				'margin-left': '320px'
 			}, 0.4, 'easeOutStrong', function() {*/
 			S.later(function() {
-				// LIST_AREA.one('.column-actions').hide();
+				LIST_AREA.one('.column-actions').slideUp(0.4);
 				NAVIGATOR.removeClass('home').css('visibility', 'hidden');
 				PAGE_TITLE.html('Simple Reader');
 				// CATS_AREA.all('span.down').replaceClass('down', 'right');
@@ -184,7 +185,7 @@ KISSY.add('mobile', function(S, N, E) {
 				oCustomEvt.fire('leftToShow', {
 					node: CATS_AREA,
 					callback: function() {
-						animateCollection.translateHorizon(LIST_AREA, 0).hide();
+						animateCollection.translateHorizon(LIST_AREA.one('.entries'), 0).hide();
 						animateCollection.translateHorizon(LIST_AREA.all('.level-1'), 0);
 					}
 				});
