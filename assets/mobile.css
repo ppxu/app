@@ -77,6 +77,7 @@ ul {
 	background-color: rgba(170,170,170,0.7);
 	-webkit-transition: -webkit-transform 0.4s;
 	margin-top: -200px;
+	display: none;
 }
 #head .mobile-search .light-search-input {
 	background-image: none;
@@ -235,6 +236,9 @@ ul {
 	position: relative;
 	-webkit-transition: -webkit-transform 0.4s;
 }
+#content #list li.read {
+	color: #aaa;
+}
 #content #list li:hover {
 	color: #555;
 }
@@ -255,6 +259,9 @@ ul {
 }
 #content #list li h2 a {
 	color: #333;
+}
+#content #list li.read h2 a {
+	color: #999;
 }
 #content #list li p {
 	height: 30px;

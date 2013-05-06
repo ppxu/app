@@ -285,6 +285,7 @@ KISSY.add('mobile', function(S, N, E) {
 		LIST_AREA.all('li').on(E.Gesture.tap, function(ev) {
 			console.log('mobile title click');
 			ev.preventDefault();
+			S.one(this).replaceClass('unread', 'read');
 			this.isDown = false;
 			if (this.isMoving === 1 || this.isMoving === 2) {
 				return;
@@ -369,13 +370,28 @@ KISSY.add('mobile', function(S, N, E) {
 			});
 
 			SEARCH_BTN.on(E.Gesture.tap, function(ev) {
-				animateCollection.translateVertical(SEARCH_AREA, 200);
-				SEARCH_BTN.addClass('search-active');
+				if(!SEARCH_BTN.hasClass('search-active')){
+					SEARCH_AREA.show();
+					S.later(function(){
+						animateCollection.translateVertical(SEARCH_AREA, 200);
+						SEARCH_BTN.addClass('search-active');
+					}, 100);
+				}
+				else {
+					animateCollection.translateVertical(SEARCH_AREA, 0);
+					SEARCH_BTN.removeClass('search-active');
+					S.later(function(){
+						SEARCH_AREA.hide();
+					}, 400);
+				}
 			});
 
 			S.one('.J_Cancel').on(E.Gesture.tap, function(ev) {
 				animateCollection.translateVertical(SEARCH_AREA, 0);
 				SEARCH_BTN.removeClass('search-active');
+				S.later(function(){
+					SEARCH_AREA.hide();
+				}, 400);
 			});
 
 		}
