@@ -119,7 +119,6 @@ ul {
 	padding-right: 35px;
 	white-space: nowrap;
 	position: relative;
-	-webkit-transition: -webkit-transform 0.4s;
 }
 #content #cats li.today:after,
 #content #cats li.all:after,
