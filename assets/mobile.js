@@ -260,55 +260,55 @@ KISSY.add('mobile', function(S, N, E) {
 					pageSwitch.homeToList({
 						'title': curTitle
 					});
+					bindListOperate();
 				}, 500);
 			});
 
-			LIST_AREA.all('li').on(E.Gesture.start, function(ev) {
-				this.isDown = true;
-				this.isMoving = 0;
-				this.originX = ev.pageX;
-				this.originY = ev.pageY;
-				this.originT = S.now();
-			});
-			LIST_AREA.all('li').on(E.Gesture.move, function(ev) {
-				var self = this;
-				if (self.isDown) {
-					self.isMoving = 1;
-					self.currentX = ev.pageX;
-					self.currentY = ev.pageY;
-					self.currentT = S.now();
-					self.deltaX = self.currentX - self.originX;
-					self.deltaY = self.currentY - self.originY;
-					self.deltaT = self.currentT - self.originT;
-					if (Math.abs(self.deltaY) <= 20) {
-						animateCollection.listTouchMove(self, self.deltaX, self.deltaT);
+			function bindListOperate(){
+				LIST_AREA.all('li').on(E.Gesture.start, function(ev) {
+					this.isDown = true;
+					this.isMoving = 0;
+					this.originX = ev.pageX;
+					this.originY = ev.pageY;
+					this.originT = S.now();
+				});
+				LIST_AREA.all('li').on(E.Gesture.move, function(ev) {
+					var self = this;
+					if (self.isDown) {
+						self.isMoving = 1;
+						self.currentX = ev.pageX;
+						self.currentY = ev.pageY;
+						self.currentT = S.now();
+						self.deltaX = self.currentX - self.originX;
+						self.deltaY = self.currentY - self.originY;
+						self.deltaT = self.currentT - self.originT;
+						if (Math.abs(self.deltaY) <= 20) {
+							animateCollection.listTouchMove(self, self.deltaX, self.deltaT);
+						}
 					}
-				}
-			});
-			LIST_AREA.all('li').on(E.Gesture.end, function(ev) {
-				var self = this;
-				if (self.isMoving === 1) {
-					self.isDown = false;
-					self.isMoving = 2;
-					S.one(self).one('.inner').addClass('webkit-transition');
-					animateCollection.translateHorizon(S.one(self).one('.inner'), 0);
-					S.one(self).one('.mark-read').animate({
-						'opacity': 0,
-						'color': '#555'
-					}, 0.3);
-					S.one(self).one('.mark-star').animate({
-						'opacity': 0,
-						'color': '#555'
-					}, 0.3);
-					S.later(function() {
-						S.one(self).one('.inner').removeClass('webkit-transition');
-					}, 500);
-				}
-			});
+				});
+				LIST_AREA.all('li').on(E.Gesture.end, function(ev) {
+					var self = this;
+					if (self.isMoving === 1) {
+						self.isDown = false;
+						self.isMoving = 2;
+						S.one(self).one('.inner').addClass('webkit-transition');
+						animateCollection.translateHorizon(S.one(self).one('.inner'), 0);
+						S.one(self).one('.mark-read').animate({
+							'opacity': 0,
+							'color': '#555'
+						}, 0.3);
+						S.one(self).one('.mark-star').animate({
+							'opacity': 0,
+							'color': '#555'
+						}, 0.3);
+						S.later(function() {
+							S.one(self).one('.inner').removeClass('webkit-transition');
+						}, 500);
+					}
+				});
 
-			LIST_AREA.on(E.Gesture.tap, function(ev) {
-				var innerDiv = S.one(ev.target).hasClass('inner') ? S.one(ev.target) : S.one(ev.target).parent('.inner');
-				if(innerDiv){
+				LIST_AREA.all('li').on(E.Gesture.tap, function(ev) {
 					console.log('mobile title click');
 					ev.preventDefault();
 					this.isDown = false;
@@ -323,8 +323,9 @@ KISSY.add('mobile', function(S, N, E) {
 							'title': '文章详情'
 						});
 					}, 500);
-				}
-			});
+				});
+			}
+			
 
 			NAVIGATOR.on(E.Gesture.tap, function(ev) {
 				var self = S.one(this);
