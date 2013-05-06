@@ -107,6 +107,7 @@ ul {
 	height: auto;
 	min-height: 440px;
 	-webkit-transition: -webkit-transform 0.4s;
+	-webkit-overflow-scrolling : touch;
 }
 #content #cats li.level-1 {
 	line-height: 50px;
@@ -286,7 +287,7 @@ ul {
 	position: fixed;
 	bottom: auto;
 	top: 100%;
-	height: 24px;
+	height: 30px;
 	background-color: #eee;
 	box-shadow: 0 0 10px #999;
 	-webkit-transition: -webkit-transform 0.4s;
@@ -295,11 +296,11 @@ ul {
 	float: left;
 	width: 33%;
 	text-align: center;
-	height: 24px;
-	line-height: 26px;
+	height: 30px;
+	line-height: 30px;
 	padding: 0;
 	border: none;
-	font-size: 1.4rem
+	font-size: 1.6rem
 }
 #content #list .column-actions ul li.active {
 	background-color: #ddd;
@@ -342,7 +343,7 @@ ul {
 	position: fixed;
 	bottom: auto;
 	top: 100%;
-	height: 24px;
+	height: 30px;
 	background-color: #eee;
 	box-shadow: 0 0 10px #999;
 	-webkit-transition: -webkit-transform 0.4s;
@@ -351,11 +352,11 @@ ul {
 	float: left;
 	width: 24%;
 	text-align: center;
-	height: 24px;
-	line-height: 26px;
+	height: 30px;
+	line-height: 30px;
 	padding: 0;
 	border: none;
-	font-size: 1.4rem
+	font-size: 1.6rem
 }
 #content #entry .column-actions ul li.toggle-read,
 #content #entry .column-actions ul li.prev,

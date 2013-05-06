@@ -171,7 +171,7 @@ KISSY.add('mobile', function(S, N, E) {
 					oCustomEvt.fire('leftToShow', {
 						node: LIST_AREA,
 						callback: function() {
-							animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -24);
+							animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -30);
 							bindListOperate();
 						}
 					});
@@ -186,7 +186,7 @@ KISSY.add('mobile', function(S, N, E) {
 					NAVIGATOR.replaceClass('home', 'main-list');
 					PAGE_TITLE.html(cfg.title);
 					animateCollection.translateVertical(LIST_AREA.one('.column-actions'), 5);
-					animateCollection.translateVertical(ENTRY_AREA.one('.column-actions'), -24);
+					animateCollection.translateVertical(ENTRY_AREA.one('.column-actions'), -30);
 					ENTRY_AREA.fadeIn(0.4);
 				}
 			});
@@ -228,7 +228,7 @@ KISSY.add('mobile', function(S, N, E) {
 					node: LIST_AREA,
 					callback: function() {
 						// ENTRY_AREA.css('margin-left', 0).hide();
-						animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -24);
+						animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -30);
 						animateCollection.translateHorizon(ENTRY_AREA.one('#entry-content'), 0);
 						ENTRY_AREA.hide();
 					}
