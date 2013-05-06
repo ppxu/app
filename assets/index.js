@@ -107,7 +107,7 @@ KISSY.add('reader', function(S, DOM, Event, UA, IO) {
 
     // handle list clicks
     Event.on(entryList, 'click', function(evt) {
-
+        console.log('title click');
         evt.preventDefault();
 
         var target = evt.target,
@@ -130,6 +130,7 @@ KISSY.add('reader', function(S, DOM, Event, UA, IO) {
 
 
     Event.on(catList, 'click', function(evt) {
+        console.log('list click');
         evt.preventDefault();
         var target = evt.target,
             id;
@@ -162,12 +163,12 @@ KISSY.add('reader', function(S, DOM, Event, UA, IO) {
     }, JSONP);
 
 
-    if (S.DOM.viewportWidth() <= 480) {
-        MC.on('home-loaded', function() {
+    MC.on('home-loaded', function() {
+        if (S.DOM.viewportWidth() <= 480) {
             S.use('mobile');
-        });
+        }
+    });
 
-    }
 
 }, {
     requires: [

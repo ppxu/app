@@ -317,6 +317,7 @@ ul {
 }
 #content #entry #entry-content {
 	width: 90%;
+	margin-top: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	-webkit-transition: -webkit-transform 0.4s;

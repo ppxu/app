@@ -306,20 +306,24 @@ KISSY.add('mobile', function(S, N, E) {
 				}
 			});
 
-			LIST_AREA.all('li').on(E.Gesture.tap, function(ev) {
-				ev.preventDefault();
-				this.isDown = false;
-				if (this.isMoving === 1 || this.isMoving === 2) {
-					return;
+			LIST_AREA.on(E.Gesture.tap, function(ev) {
+				var innerDiv = S.one(ev.target).hasClass('inner') ? S.one(ev.target) : S.one(ev.target).parent('.inner');
+				if(innerDiv){
+					console.log('mobile title click');
+					ev.preventDefault();
+					this.isDown = false;
+					if (this.isMoving === 1 || this.isMoving === 2) {
+						return;
+					}
+					// var curTitle = S.one(this).one('h2').text();
+					animateCollection.showLoading();
+					S.later(function() {
+						animateCollection.hideLoading();
+						pageSwitch.listToDetail({
+							'title': '文章详情'
+						});
+					}, 500);
 				}
-				// var curTitle = S.one(this).one('h2').text();
-				animateCollection.showLoading();
-				S.later(function() {
-					animateCollection.hideLoading();
-					pageSwitch.listToDetail({
-						'title': '文章详情'
-					});
-				}, 500);
 			});
 
 			NAVIGATOR.on(E.Gesture.tap, function(ev) {
