@@ -235,11 +235,32 @@ KISSY.add('mobile', function(S, N, E) {
 				});
 			}, 400);
 			// }).run();
+		},
+		listSwitchAll: function(){
+			LIST_AREA.one('.entries').all('li').show();
+			LIST_AREA.one('.column-actions').all('li').removeClass('active');
+			LIST_AREA.one('.column-actions').one('li.all-posts').addClass('active');
+		},
+		listSwitchUnread: function(){
+			LIST_AREA.one('.entries').all('li').show();
+			LIST_AREA.one('.entries').all('li.read').hide();
+			LIST_AREA.one('.column-actions').all('li').removeClass('active');
+			LIST_AREA.one('.column-actions').one('li.unread-posts').addClass('active');
+		},
+		listSwitchStar: function(){
+			LIST_AREA.one('.entries').all('li').hide();
+			LIST_AREA.one('.entries').all('li.star').show();
+			LIST_AREA.one('.column-actions').all('li').removeClass('active');
+			LIST_AREA.one('.column-actions').one('li.star-posts').addClass('active');
 		}
 	};
 
 	function bindListOperate() {
 		LIST_AREA.all('li').on(E.Gesture.start, function(ev) {
+			var el = S.one(this);
+			if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+				return;
+			}
 			this.isDown = true;
 			this.isMoving = 0;
 			this.originX = ev.pageX;
@@ -247,6 +268,10 @@ KISSY.add('mobile', function(S, N, E) {
 			this.originT = S.now();
 		});
 		LIST_AREA.all('li').on(E.Gesture.move, function(ev) {
+			var el = S.one(this);
+			if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+				return;
+			}
 			var self = this;
 			if (self.isDown) {
 				self.isMoving = 1;
@@ -256,12 +281,16 @@ KISSY.add('mobile', function(S, N, E) {
 				self.deltaX = self.currentX - self.originX;
 				self.deltaY = self.currentY - self.originY;
 				self.deltaT = self.currentT - self.originT;
-				if (Math.abs(self.deltaY) <= 20 && Math.abs(self.deltaX) - 10 > 0) {
+				if (Math.abs(self.deltaY) <= 10 && Math.abs(self.deltaX) > 10) {
 					animateCollection.listTouchMove(self, self.deltaX, self.deltaT);
 				}
 			}
 		});
 		LIST_AREA.all('li').on(E.Gesture.end, function(ev) {
+			var el = S.one(this);
+			if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+				return;
+			}
 			var self = this;
 			if (self.isMoving === 1) {
 				self.isDown = false;
@@ -283,6 +312,10 @@ KISSY.add('mobile', function(S, N, E) {
 		});
 
 		LIST_AREA.all('li').on(E.Gesture.tap, function(ev) {
+			var el = S.one(this);
+			if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+				return;
+			}
 			console.log('mobile title click');
 			ev.preventDefault();
 			S.one(this).replaceClass('unread', 'read');
@@ -298,6 +331,20 @@ KISSY.add('mobile', function(S, N, E) {
 					'title': '文章详情'
 				});
 			}, 500);
+		});
+
+		LIST_AREA.one('.column-actions').all('li').on(E.Gesture.tap, function(e){
+			var el = S.one(this);
+			e.preventDefault();
+			if(el.hasClass('all-posts')){
+				pageSwitch.listSwitchAll();
+			}
+			else if(el.hasClass('unread-posts')){
+				pageSwitch.listSwitchUnread();
+			}
+			else if(el.hasClass('star-posts')){
+				pageSwitch.listSwitchStar();
+			}
 		});
 	}
 
@@ -358,6 +405,8 @@ KISSY.add('mobile', function(S, N, E) {
 					pageSwitch.detailToList();
 				}
 			});
+
+			
 
 			S.one('.toggle-read').on(E.Gesture.tap, function(ev) {
 				var el = S.one(this).one('i');
