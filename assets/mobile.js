@@ -81,8 +81,8 @@ KISSY.add('mobile', function(S, N, E) {
 			var innerNode = self.one('.inner');
 			if (value > 10) {
 				var realValue = value - 10;
-				self.one('.mark-read').css('opacity', realValue / 60);
 				if (realValue <= 60) {
+					self.one('.mark-read').css('opacity', realValue / 60);
 					animateCollection.translateHorizon(innerNode, realValue);
 				} else if (realValue <= 300) {
 					animateCollection.translateHorizon(innerNode, 60 + (realValue - 60) / 12);
@@ -94,8 +94,8 @@ KISSY.add('mobile', function(S, N, E) {
 				}
 			} else if (value < -10) {
 				var falseValue = value + 10;
-				self.one('.mark-star').css('opacity', -falseValue / 60);
 				if (falseValue >= -60) {
+					self.one('.mark-star').css('opacity', -falseValue / 60);
 					animateCollection.translateHorizon(innerNode, falseValue);
 				} else if (falseValue >= -300) {
 					animateCollection.translateHorizon(innerNode, -60 + (falseValue + 60) / 12);
@@ -168,11 +168,11 @@ KISSY.add('mobile', function(S, N, E) {
 					NAVIGATOR.addClass('home').css('visibility', 'visible');
 					PAGE_TITLE.html(cfg.title).attr('list_title', cfg.title);
 					// LIST_AREA.one('.column-actions').hide().slideDown(0.4);
+					bindListOperate();
 					oCustomEvt.fire('leftToShow', {
 						node: LIST_AREA,
 						callback: function() {
 							animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -30);
-							bindListOperate();
 						}
 					});
 				}
@@ -257,6 +257,7 @@ KISSY.add('mobile', function(S, N, E) {
 
 	function bindListOperate() {
 		LIST_AREA.all('li').on(E.Gesture.start, function(ev) {
+			console.log('li tap');
 			var el = S.one(this);
 			if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
 				return;
@@ -383,7 +384,57 @@ KISSY.add('mobile', function(S, N, E) {
 				}, 500);
 			});
 
-
+			/*LIST_AREA.one('.entries').on(E.Gesture.start, function(ev) {
+				if(S.one(this).hasClass('entries') && S.one('body').scrollTop() <= 1){
+					console.log('on top');
+					this.isDown = true;
+					this.isMoving = 0;
+					this.originX = ev.pageX;
+					this.originY = ev.pageY;
+					this.originT = S.now();
+				}
+			});
+			LIST_AREA.one('.entries').on(E.Gesture.move, function(ev) {
+				var self = this;
+				if (self.isDown) {
+					self.isMoving = 1;
+					self.currentX = ev.pageX;
+					self.currentY = ev.pageY;
+					self.currentT = S.now();
+					self.deltaX = self.currentX - self.originX;
+					self.deltaY = self.currentY - self.originY;
+					self.deltaT = self.currentT - self.originT;
+					if (self.deltaY > 10 && Math.abs(self.deltaX) <= 10) {
+						var moveY = self.deltaY - 10;
+						S.one(self).parent('#list').one('.refresh-tips').css('opacity', moveY / 80);
+						if(moveY <= 20){
+							animateCollection.translateVertical(S.one(self), moveY);
+						}
+						else if(moveY <= 40){
+							animateCollection.translateVertical(S.one(self), 10 + moveY / 2);
+						}
+						else if(moveY <= 80){
+							animateCollection.translateVertical(S.one(self), 20 + moveY / 4);
+						}
+						else if(moveY > 80){
+							S.one(self).parent('#list').one('.refresh-tips').html('<i class="icon-arrow-up"></i>松开刷新');
+						}
+					}
+				}
+			});
+			LIST_AREA.one('.entries').on(E.Gesture.end, function(ev) {
+				var self = this;
+				if (self.isMoving === 1) {
+					self.isDown = false;
+					self.isMoving = 2;
+					S.one(self).addClass('webkit-transition');
+					animateCollection.translateVertical(S.one(self), 0);
+					S.one(self).parent('#list').one('.refresh-tips').html('<i class="icon-arrow-down"></i>下拉刷新').animate({'opacity': 0}, 0.4);
+					S.later(function(){
+						S.one(self).removeClass('webkit-transition');
+					}, 500);
+				}
+			});*/
 
 			NAVIGATOR.on(E.Gesture.tap, function(ev) {
 				var self = S.one(this);
