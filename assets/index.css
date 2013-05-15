@@ -30,11 +30,10 @@ body {
 #search {
     width: 200px;
     float: right;
+    padding-right: 30px;
 }
-
 .content-column {
     float: left;
-    height: 500px;
     position: relative;
     width: 32%;
 }
