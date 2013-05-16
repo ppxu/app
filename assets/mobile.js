@@ -30,9 +30,15 @@ KISSY.add('mobile', function(S, N, E) {
 		hideToLeft: function(element) {
 			var lists = element.all('.level-1');
 			lists.each(function(el, index) {
-				S.later(function() {
-					animateCollection.translateHorizon(el, 0);
-				}, 100 * index);
+				if(index < 10) {
+					S.later(function() {
+						animateCollection.translateHorizon(el, 0);
+					}, 100 * index);	
+				} else {
+					S.later(function() {
+						animateCollection.translateHorizon(el, 0);
+					}, 1000);
+				}
 			});
 		},
 		middleToShow: function(element) {

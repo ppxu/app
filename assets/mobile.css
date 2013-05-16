@@ -338,18 +338,20 @@ ul {
 	padding-right: 10px;
 	-webkit-transition: -webkit-transform 0.4s;
 }
-/* #content #entry #entry-content h3 {
+#content #entry #entry-content h1, 
+#content #entry #entry-content h2,
+#content #entry #entry-content h3 {
 	text-align: center;
 	font-size: 3rem;
 	line-height: 48px;
 }
-#content #entry #entry-content img {
+/* #content #entry #entry-content img {
 	width: 70%;
 	margin: 10px 40px;
 } */
 #content #entry #entry-content p {
 	width: 90%;
-	margin-left: 20px;
+	margin-left: 6%;
 	word-break: break-all;
 	font-size: 1.8rem;
 	line-height: 20px;
