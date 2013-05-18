@@ -243,7 +243,6 @@ ul {
 	margin: 0;
 	color: #555;
 	position: relative;
-	-webkit-transition: -webkit-transform 0.4s;
 }
 #content #list li.read {
 	color: #aaa;

@@ -23,7 +23,7 @@ KISSY.add('mobile', function(S, N, E) {
 				} else {
 					S.later(function() {
 						animateCollection.translateHorizon(el, 320);
-					}, 1500);
+					}, 1700);
 				}
 			});
 		},
@@ -189,6 +189,7 @@ KISSY.add('mobile', function(S, N, E) {
 			oCustomEvt.fire('hideToMiddle', {
 				node: LIST_AREA,
 				callback: function() {
+					window.scrollTo(0, 1);
 					// ENTRY_AREA.one('.column-actions').show();
 					NAVIGATOR.replaceClass('home', 'main-list');
 					PAGE_TITLE.html(cfg.title);
@@ -360,6 +361,8 @@ KISSY.add('mobile', function(S, N, E) {
 			if (S.DOM.viewportWidth() > 480) {
 				return;
 			}
+
+			KISSY.one('.scroll_content').attr('style', '')
 
 			pageSwitch.loadHome();
 
