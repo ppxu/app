@@ -15,14 +15,14 @@ KISSY.add('mobile', function(S, N, E) {
 			window.scrollTo(0, 1);
 			var lists = element.all('.level-1');
 			lists.css('margin-left', '-320px').each(function(el, index) {
-				if (index < 10) {
+				if (index < 8) {
 					S.later(function() {
 						animateCollection.translateHorizon(el, 320);
 					}, 150 * index);
 				} else {
 					S.later(function() {
 						animateCollection.translateHorizon(el, 320);
-					}, 1700);
+					}, 1200);
 				}
 			});
 		},
@@ -128,7 +128,7 @@ KISSY.add('mobile', function(S, N, E) {
 		animateCollection.leftToShow(ev.node);
 		ev.callback && S.later(function() {
 			ev.callback();
-		}, 1000);
+		}, 1200);
 	});
 	oCustomEvt.on('hideToLeft', function(ev) {
 		animateCollection.hideToLeft(ev.node);
@@ -151,32 +151,34 @@ KISSY.add('mobile', function(S, N, E) {
 		}, 400);
 	});
 	oCustomEvt.on('listMarkRead', function(ev) {
-		if(S.one(ev.node).hasClass('unread')){
-			ev.node.one('.mark-read').css({
+		var node = ev.node;
+		if(node.hasClass('unread')){
+			node.one('.mark-read').css({
 				'color': '#0f0'
 			});
-			S.one(ev.node).replaceClass('unread', 'read');
+			node.replaceClass('unread', 'read');
 		}
-		else if(S.one(ev.node).hasClass('read')){
-			ev.node.one('.mark-read').css({
+		else if(node.hasClass('read')){
+			node.one('.mark-read').css({
 				'color': '#555'
 			});
-			S.one(ev.node).replaceClass('read', 'unread');
+			node.replaceClass('read', 'unread');
 		}
 		ev.element.readToggle = 2;
 	});
 	oCustomEvt.on('listMarkStar', function(ev) {
-		if(S.one(ev.node).hasClass('unstar')){
-			ev.node.one('.mark-star').css({
+		var node = ev.node;
+		if(node.hasClass('unstar')){
+			node.one('.mark-star').css({
 				'color': '#f00'
 			});
-			S.one(ev.node).replaceClass('unstar', 'star');
+			node.replaceClass('unstar', 'star');
 		}
-		else if(S.one(ev.node).hasClass('star')){
-			ev.node.one('.mark-star').css({
+		else if(node.hasClass('star')){
+			node.one('.mark-star').css({
 				'color': '#555'
 			});
-			S.one(ev.node).replaceClass('star', 'unstar');
+			node.replaceClass('star', 'unstar');
 		}
 		ev.element.starToggle = 2;
 	});
