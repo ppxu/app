@@ -374,6 +374,8 @@ KISSY.add('mobile', function(S, N, E) {
 			if (this.isMoving === 1 || this.isMoving === 2) {
 				return;
 			}
+			this.readToggle = 0;
+			this.starToggle = 0;
 			el.replaceClass('unread', 'read');
 			el.one('.mark-read').css({
 				'color': '#0f0'
@@ -404,7 +406,6 @@ KISSY.add('mobile', function(S, N, E) {
 				});
 			}
 			if(el.hasClass('star')){
-				console.log(el);
 				el.one('.mark-star').css({
 					'color': '#f00'
 				});
@@ -449,7 +450,7 @@ KISSY.add('mobile', function(S, N, E) {
 						'title': curTitle
 					});
 					animateCollection.hideLoading();
-				}, 1000);
+				}, 500);
 			});
 
 			/*LIST_AREA.all('li').on(E.Gesture.start, function(ev) {
