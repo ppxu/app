@@ -1,14 +1,14 @@
-KISSY.add('pad', function (S, DOM, Event) {
+KISSY.add('pad', function (S, DOM, Event,Node) {
     //padÌí¼Ó
     var DOM = S.DOM, Event = S.Event;
     var height = DOM.viewportHeight(),
-        tmp = DOM.offset('#content').top + parseInt(DOM.css('.column-actions','height').slice(0,-2)); console.log(tmp);
+        tmp = DOM.offset('#content').top + parseInt(DOM.css('.column-actions','height').slice(0,-2));
     DOM.css('.sub-entry','height',height-tmp+'px');
 
     //window resize
     Event.on(window,'resize',function(e){
         var height = DOM.viewportHeight(),
-            tmp = DOM.offset('#content').top + parseInt(DOM.css('.column-actions','height').slice(0,-2)); console.log(tmp);
+            tmp = DOM.offset('#content').top + parseInt(DOM.css('.column-actions','height').slice(0,-2));
         DOM.css('.sub-entry','height',height-tmp+'px');
     });
 
@@ -56,7 +56,7 @@ KISSY.add('pad', function (S, DOM, Event) {
 
                 DOM.css("#entry",'transition-duration',0.1*len/2+'s');
                 DOM.css("#entry",'-webkit-transition-duration',0.1*len/2+'s');
-                DOM.css('#entry','width','69%');
+                DOM.css('#entry','width','70%');
                 DOM.css('#entry','left','0');
                 DOM.css('#entry','top','0');
             },100*len/2);
@@ -76,14 +76,9 @@ KISSY.add('pad', function (S, DOM, Event) {
     });
 
 
-    Event.on('.action-list','click','.action',function(e){
-        var target = e.currentTaregt,
-            i = DOM.get('i',target);
-       //todo ±ä»¯icon
-
-    })
 }, { requires: [
     'dom',
-    'event'
+    'event',
+    'node'
 ]});
 

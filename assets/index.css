@@ -7,6 +7,7 @@ body {
     font-size: 14px;
 }
 
+
 #reader {
     max-width: 900px;
     width: 100%;
@@ -14,7 +15,8 @@ body {
     background-color: #fff;
 }
 
-#head:after {
+#head:after,
+#content:after {
     content: '.';
     height: 0;
     display: block;
@@ -74,4 +76,7 @@ margin-left: 35px;
 
 .title h2 {
     font-size: 14px;
+}
+.system-cats li{
+    cursor: pointer;
 }

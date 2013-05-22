@@ -5,8 +5,8 @@ KISSY.add('mobile', function(S, N, E) {
 	var ENTRY_AREA = S.one('#entry');
 	var NAVIGATOR = S.one('.navigator');
 	var PAGE_TITLE = S.one('#head').one('h1');
-	var SEARCH_AREA = S.one('.mobile-search');
-	var SEARCH_BTN = S.one('.search');
+	/*var SEARCH_AREA = S.one('.mobile-search');
+	var SEARCH_BTN = S.one('.search');*/
 
 	//动画集合
 	var animateCollection = {
@@ -16,7 +16,6 @@ KISSY.add('mobile', function(S, N, E) {
 			var lists = element.all('.level-1');
 			lists.css('margin-left', '-320px').each(function(el, index) {
 				if (index < 10) {
-					el.addClass('webkit-transition');
 					S.later(function() {
 						animateCollection.translateHorizon(el, 320);
 					}, 150 * index);
@@ -30,14 +29,14 @@ KISSY.add('mobile', function(S, N, E) {
 		hideToLeft: function(element) {
 			var lists = element.all('.level-1');
 			lists.each(function(el, index) {
-				if(index < 10) {
+				if(index < 7) {
 					S.later(function() {
 						animateCollection.translateHorizon(el, 0);
 					}, 100 * index);	
 				} else {
 					S.later(function() {
 						animateCollection.translateHorizon(el, 0);
-					}, 1000);
+					}, 600);
 				}
 			});
 		},
@@ -92,9 +91,10 @@ KISSY.add('mobile', function(S, N, E) {
 					animateCollection.translateHorizon(innerNode, realValue);
 				} else if (realValue <= 300) {
 					animateCollection.translateHorizon(innerNode, 60 + (realValue - 60) / 12);
-					if (time > 500) {
+					if (time > 500 && list.readToggle === 1) {
 						oCustomEvt.fire('listMarkRead', {
-							node: self
+							node: self,
+							element: list
 						});
 					}
 				}
@@ -105,9 +105,10 @@ KISSY.add('mobile', function(S, N, E) {
 					animateCollection.translateHorizon(innerNode, falseValue);
 				} else if (falseValue >= -300) {
 					animateCollection.translateHorizon(innerNode, -60 + (falseValue + 60) / 12);
-					if (time > 500) {
+					if (time > 500 && list.starToggle === 1) {
 						oCustomEvt.fire('listMarkStar', {
-							node: self
+							node: self,
+							element: list
 						});
 					}
 				}
@@ -150,15 +151,34 @@ KISSY.add('mobile', function(S, N, E) {
 		}, 400);
 	});
 	oCustomEvt.on('listMarkRead', function(ev) {
-		ev.node.one('.mark-read').css({
-			'color': '#0f0'
-		});
-		S.one(ev.node).replaceClass('unread', 'read');
+		if(S.one(ev.node).hasClass('unread')){
+			ev.node.one('.mark-read').css({
+				'color': '#0f0'
+			});
+			S.one(ev.node).replaceClass('unread', 'read');
+		}
+		else if(S.one(ev.node).hasClass('read')){
+			ev.node.one('.mark-read').css({
+				'color': '#555'
+			});
+			S.one(ev.node).replaceClass('read', 'unread');
+		}
+		ev.element.readToggle = 2;
 	});
 	oCustomEvt.on('listMarkStar', function(ev) {
-		ev.node.one('.mark-star').css({
-			'color': '#f00'
-		});
+		if(S.one(ev.node).hasClass('unstar')){
+			ev.node.one('.mark-star').css({
+				'color': '#f00'
+			});
+			S.one(ev.node).replaceClass('unstar', 'star');
+		}
+		else if(S.one(ev.node).hasClass('star')){
+			ev.node.one('.mark-star').css({
+				'color': '#555'
+			});
+			S.one(ev.node).replaceClass('star', 'unstar');
+		}
+		ev.element.starToggle = 2;
 	});
 
 	//页面切换
@@ -174,14 +194,25 @@ KISSY.add('mobile', function(S, N, E) {
 				callback: function() {
 					NAVIGATOR.addClass('home').css('visibility', 'visible');
 					PAGE_TITLE.html(cfg.title).attr('list_title', cfg.title);
+					LIST_AREA.show();
+					window.scrollTo(0, 1);
+					LIST_AREA.one('.entries').css('margin-left', '-320px');
+					S.later(function(){
+						animateCollection.translateHorizon(LIST_AREA.one('.entries'), 320);
+					}, 10);
+					S.later(function(){
+						animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -30);
+						bindListOperate();
+						setReadStarTag();
+					}, 400);
 					// LIST_AREA.one('.column-actions').hide().slideDown(0.4);
-					oCustomEvt.fire('leftToShow', {
+					/*oCustomEvt.fire('middleToShow', {
 						node: LIST_AREA,
 						callback: function() {
 							animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -30);
 							bindListOperate();
 						}
-					});
+					});*/
 				}
 			});
 		},
@@ -189,13 +220,20 @@ KISSY.add('mobile', function(S, N, E) {
 			oCustomEvt.fire('hideToMiddle', {
 				node: LIST_AREA,
 				callback: function() {
-					window.scrollTo(0, 1);
 					// ENTRY_AREA.one('.column-actions').show();
 					NAVIGATOR.replaceClass('home', 'main-list');
 					PAGE_TITLE.html(cfg.title);
 					animateCollection.translateVertical(LIST_AREA.one('.column-actions'), 5);
 					animateCollection.translateVertical(ENTRY_AREA.one('.column-actions'), -30);
+					ENTRY_AREA.sourceNode = cfg.node;
+					if(cfg.star === 'star'){
+						ENTRY_AREA.one('.column-actions').one('.toggle-star').one('i').replaceClass('icon-heart-empty', 'icon-heart');
+					}
+					else {
+						ENTRY_AREA.one('.column-actions').one('.toggle-star').one('i').replaceClass('icon-heart', 'icon-heart-empty');
+					}
 					ENTRY_AREA.fadeIn(0.4);
+					window.scrollTo(0, 1);
 				}
 			});
 		},
@@ -223,7 +261,7 @@ KISSY.add('mobile', function(S, N, E) {
 			// }).run();
 		},
 		detailToList: function() {
-			animateCollection.translateHorizon(ENTRY_AREA.one('#entry-content'), 320);
+			animateCollection.translateHorizon(ENTRY_AREA.one('.sub-entry'), 320);
 			/*S.Anim(ENTRY_AREA, {
 				'margin-left': '100%'
 			}, 0.4, 'easeOutStrong', function() {*/
@@ -237,7 +275,7 @@ KISSY.add('mobile', function(S, N, E) {
 					callback: function() {
 						// ENTRY_AREA.css('margin-left', 0).hide();
 						animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -30);
-						animateCollection.translateHorizon(ENTRY_AREA.one('#entry-content'), 0);
+						animateCollection.translateHorizon(ENTRY_AREA.one('.sub-entry'), 0);
 						ENTRY_AREA.hide();
 					}
 				});
@@ -245,17 +283,20 @@ KISSY.add('mobile', function(S, N, E) {
 			// }).run();
 		},
 		listSwitchAll: function(){
+			window.scrollTo(0, 1);
 			LIST_AREA.one('.entries').all('li').show();
 			LIST_AREA.one('.column-actions').all('li').removeClass('active');
 			LIST_AREA.one('.column-actions').one('li.all-posts').addClass('active');
 		},
 		listSwitchUnread: function(){
+			window.scrollTo(0, 1);
 			LIST_AREA.one('.entries').all('li').show();
 			LIST_AREA.one('.entries').all('li.read').hide();
 			LIST_AREA.one('.column-actions').all('li').removeClass('active');
 			LIST_AREA.one('.column-actions').one('li.unread-posts').addClass('active');
 		},
 		listSwitchStar: function(){
+			window.scrollTo(0, 1);
 			LIST_AREA.one('.entries').all('li').hide();
 			LIST_AREA.one('.entries').all('li.star').show();
 			LIST_AREA.one('.column-actions').all('li').removeClass('active');
@@ -274,6 +315,8 @@ KISSY.add('mobile', function(S, N, E) {
 			this.originX = ev.pageX;
 			this.originY = ev.pageY;
 			this.originT = S.now();
+			this.readToggle = 1;
+			this.starToggle = 1;
 		});
 		LIST_AREA.all('li').on(E.Gesture.move, function(ev) {
 			var el = S.one(this);
@@ -303,15 +346,15 @@ KISSY.add('mobile', function(S, N, E) {
 			if (self.isMoving === 1) {
 				self.isDown = false;
 				self.isMoving = 2;
+				self.readToggle = 0;
+				self.starToggle = 0;
 				S.one(self).one('.inner').addClass('webkit-transition');
 				animateCollection.translateHorizon(S.one(self).one('.inner'), 0);
 				S.one(self).one('.mark-read').animate({
-					'opacity': 0,
-					'color': '#555'
+					'opacity': 0
 				}, 0.3);
 				S.one(self).one('.mark-star').animate({
-					'opacity': 0,
-					'color': '#555'
+					'opacity': 0
 				}, 0.3);
 				S.later(function() {
 					S.one(self).one('.inner').removeClass('webkit-transition');
@@ -324,36 +367,47 @@ KISSY.add('mobile', function(S, N, E) {
 			if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
 				return;
 			}
-			console.log('mobile title click');
 			ev.preventDefault();
-			S.one(this).replaceClass('unread', 'read');
 			this.isDown = false;
 			if (this.isMoving === 1 || this.isMoving === 2) {
 				return;
 			}
+			el.replaceClass('unread', 'read');
+			el.one('.mark-read').css({
+				'color': '#0f0'
+			});
+			var star = el.hasClass('star') ? 'star' : 'unstar';
 			// var curTitle = S.one(this).one('h2').text();
 			animateCollection.showLoading();
 			S.later(function() {
 				animateCollection.hideLoading();
 				pageSwitch.listToDetail({
-					'title': '文章详情'
+					'title': '文章详情',
+					'node': el,
+					'star': star
 				});
 			}, 500);
 		});
+	}
 
-		LIST_AREA.one('.column-actions').all('li').on(E.Gesture.tap, function(e){
-			var el = S.one(this);
-			e.preventDefault();
-			if(el.hasClass('all-posts')){
-				pageSwitch.listSwitchAll();
+	function setReadStarTag(){
+		LIST_AREA.all('li').each(function(list) {
+			var el = S.one(list);
+			if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+				return;
 			}
-			else if(el.hasClass('unread-posts')){
-				pageSwitch.listSwitchUnread();
+			if(el.hasClass('read')){
+				el.one('.mark-read').css({
+					'color': '#0f0'
+				});
 			}
-			else if(el.hasClass('star-posts')){
-				pageSwitch.listSwitchStar();
-			}
-		});
+			if(el.hasClass('star')){
+				console.log(el);
+				el.one('.mark-star').css({
+					'color': '#f00'
+				});
+			};
+		})
 	}
 
 	var Mobile = {
@@ -364,6 +418,9 @@ KISSY.add('mobile', function(S, N, E) {
 
 			KISSY.one('.scroll_content').attr('style', '')
 
+			KISSY.one('#user-cat-list').insertBefore(KISSY.one('#cats').one('.section'))
+			KISSY.one('#cats').one('.section').remove();
+
 			pageSwitch.loadHome();
 
 			/*S.all('li.catelog').on(E.Gesture.tap, function(ev) {
@@ -372,7 +429,7 @@ KISSY.add('mobile', function(S, N, E) {
 				S.one(this).one('ul').slideToggle(0.4);
 			});*/
 
-			S.one('li.today').add('li.all').add('li.star').add('li.list-detail').on(E.Gesture.tap, function(ev) {
+			S.one('#cats li.today').add('#cats li.all').add('#cats li.star').add('#cats li.list-detail').on(E.Gesture.tap, function(ev) {
 				var curTitle;
 				var self = S.one(this);
 				if (self.hasClass('today')) {
@@ -386,14 +443,105 @@ KISSY.add('mobile', function(S, N, E) {
 				}
 				animateCollection.showLoading();
 				S.later(function() {
-					animateCollection.hideLoading();
 					pageSwitch.homeToList({
 						'title': curTitle
 					});
-				}, 500);
+					animateCollection.hideLoading();
+				}, 1000);
 			});
 
+			/*LIST_AREA.all('li').on(E.Gesture.start, function(ev) {
+				var el = S.one(this);
+				if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+					return;
+				}
+				this.isDown = true;
+				this.isMoving = 0;
+				this.originX = ev.pageX;
+				this.originY = ev.pageY;
+				this.originT = S.now();
+			});
+			LIST_AREA.all('li').on(E.Gesture.move, function(ev) {
+				var el = S.one(this);
+				if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+					return;
+				}
+				var self = this;
+				if (self.isDown) {
+					self.isMoving = 1;
+					self.currentX = ev.pageX;
+					self.currentY = ev.pageY;
+					self.currentT = S.now();
+					self.deltaX = self.currentX - self.originX;
+					self.deltaY = self.currentY - self.originY;
+					self.deltaT = self.currentT - self.originT;
+					if (Math.abs(self.deltaY) <= 10 && Math.abs(self.deltaX) > 10) {
+						animateCollection.listTouchMove(self, self.deltaX, self.deltaT);
+					}
+				}
+			});
+			LIST_AREA.all('li').on(E.Gesture.end, function(ev) {
+				var el = S.one(this);
+				if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+					return;
+				}
+				var self = this;
+				if (self.isMoving === 1) {
+					self.isDown = false;
+					self.isMoving = 2;
+					S.one(self).one('.inner').addClass('webkit-transition');
+					animateCollection.translateHorizon(S.one(self).one('.inner'), 0);
+					S.one(self).one('.mark-read').animate({
+						'opacity': 0,
+						'color': '#555'
+					}, 0.3);
+					S.one(self).one('.mark-star').animate({
+						'opacity': 0,
+						'color': '#555'
+					}, 0.3);
+					S.later(function() {
+						S.one(self).one('.inner').removeClass('webkit-transition');
+					}, 500);
+				}
+			});
 
+			LIST_AREA.all('li').on(E.Gesture.tap, function(ev) {
+				var el = S.one(this);
+				if(el.hasClass('all-posts') || el.hasClass('unread-posts') || el.hasClass('star-posts')) {
+					return;
+				}
+				ev.preventDefault();
+				el.replaceClass('unread', 'read');
+				var star = el.hasClass('star') ? 'star' : 'unstar';
+				this.isDown = false;
+				if (this.isMoving === 1 || this.isMoving === 2) {
+					return;
+				}
+				// var curTitle = S.one(this).one('h2').text();
+				animateCollection.showLoading();
+				S.later(function() {
+					animateCollection.hideLoading();
+					pageSwitch.listToDetail({
+						'title': '文章详情',
+						'node': el,
+						'star': star
+					});
+				}, 500);
+			});*/
+
+			LIST_AREA.one('.column-actions').all('li').on(E.Gesture.tap, function(e){
+				var el = S.one(this);
+				e.preventDefault();
+				if(el.hasClass('all-posts')){
+					pageSwitch.listSwitchAll();
+				}
+				else if(el.hasClass('unread-posts')){
+					pageSwitch.listSwitchUnread();
+				}
+				else if(el.hasClass('star-posts')){
+					pageSwitch.listSwitchStar();
+				}
+			});
 
 			NAVIGATOR.on(E.Gesture.tap, function(ev) {
 				var self = S.one(this);
@@ -416,19 +564,21 @@ KISSY.add('mobile', function(S, N, E) {
 				}
 			});
 
-			
-
-			S.one('.toggle-read').on(E.Gesture.tap, function(ev) {
+			/*S.one('.toggle-read').on(E.Gesture.tap, function(ev) {
+				var sourceNode = ENTRY_AREA.sourceNode;
 				var el = S.one(this).one('i');
 				el.hasClass('icon-circle') ? el.replaceClass('icon-circle', 'icon-circle-blank') : el.replaceClass('icon-circle-blank', 'icon-circle');
-			});
+				sourceNode.toggleClass('read', 'unread');
+			}); 
 
 			S.one('.toggle-star').on(E.Gesture.tap, function(ev) {
+				var sourceNode = ENTRY_AREA.sourceNode;
 				var el = S.one(this).one('i');
 				el.hasClass('icon-heart-empty') ? el.replaceClass('icon-heart-empty', 'icon-heart') : el.replaceClass('icon-heart', 'icon-heart-empty');
-			});
+				sourceNode.toggleClass('star', 'unstar');
+			});*/
 
-			SEARCH_BTN.on(E.Gesture.tap, function(ev) {
+			/*SEARCH_BTN.on(E.Gesture.tap, function(ev) {
 				if(!SEARCH_BTN.hasClass('search-active')){
 					SEARCH_AREA.show();
 					S.later(function(){
@@ -443,15 +593,15 @@ KISSY.add('mobile', function(S, N, E) {
 						SEARCH_AREA.hide();
 					}, 400);
 				}
-			});
+			});*/
 
-			S.one('.J_Cancel').on(E.Gesture.tap, function(ev) {
+			/*S.one('.J_Cancel').on(E.Gesture.tap, function(ev) {
 				animateCollection.translateVertical(SEARCH_AREA, 0);
 				SEARCH_BTN.removeClass('search-active');
 				S.later(function(){
 					SEARCH_AREA.hide();
 				}, 400);
-			});
+			});*/
 
 		}
 	};

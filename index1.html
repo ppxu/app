@@ -1,269 +1,373 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
 	<meta charset="utf-8"/>
-    <meta name="viewport"
+	<meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
 	<title>Simple Reader</title>
-	<link rel="stylesheet" href="topcoat/release/css/topcoat-mobile-min.css"/>
-    <link rel="stylesheet" href="assets/index.css"/>
-    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="assets/mobile.css" media="only screen and (max-width: 480px)">
-	<link rel="apple-touch-icon" sizes="114x114" href="assets/apple-touch-icon-114x114.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="assets/apple-touch-startup-image-640x920.png">
+	<link rel="stylesheet" href="topcoat/release/css/topcoat-desktop.css"/>
+	<link rel="stylesheet" href="assets/index.css"/>
+
+	<link rel="stylesheet" media="(width:1024px)" href="assets/pad.css">
+	<link rel="stylesheet" media="(width:320px)" href="assets/mobile.css">
+	<link rel="stylesheet" href="assets/font-awesome.css">
+	<link rel="stylesheet" media="(min-width:1025px)" href="assets/desktop.css">
+	<link rel="stylesheet"
+          media="(min-width:1025px)"
+          href="http://docs.kissyui.com/kissy-gallery/gallery/kscroll/1.1/assets/clear.css"/>
 </head>
 <body>
 	<div id="reader">
 		<div id="head">
-			<a class="navigator"><i class="icon-angle-left"></i></a>
+			<a class="navigator mobile-version"> <i class="icon-angle-left"></i>
+			</a>
 			<div id="branding" class="heading">
-	            <h1> Simple Reader </h1>
-	        </div>
-	        <div id="search" class="heading">
-	            <input type="text" placeholder="请输入搜索内容"/>
-	        </div>
-	        <a class="search"><i class="icon-search"></i></a>
-	        <div class="mobile-search">
-	        	<input type="search" class="light-search-input" value="" placeholder="请输入搜索内容">
-				<a href="#" class="light-button J_Cancel" role="button">取消</a>
-				<a href="#" class="light-cta light-button J_Search" role="button">搜索</a>
-	        </div>
+				<h1>Simple Reader</h1>
+			</div>
 		</div>
 		<div id="content">
 			<div id="cats" class="content-column">
-            	<div class="sub-entry">
+				<div class="sub-entry">
 					<ul class="system-cats cat-list">
-						<li class="today level-1"><i class="icon-rss"></i> 今日 <span class="unread-count notification">983</span></li>
-						<li class="all level-1"><i class="icon-reorder"></i> 全部 </li>
-						<li class="star level-1"><i class="icon-bookmark-empty"></i> 收藏 </li>
+						<li class="today level-1"> <i class="icon-rss"></i>
+							今日
+							<!-- <span class="unread-count notification">983</span> -->
+						</li>
+						<li class="all level-1">
+							<i class="icon-reorder"></i>
+							全部
+						</li>
+						<li class="star level-1">
+							<i class="icon-bookmark-empty"></i>
+							收藏
+						</li>
 					</ul>
-					<ul class="user-cats cat-list" id="user-cat-list">
-						<!-- <li class="catelog level-1"><i class="icon-angle-right"></i> technology
-							<ul class="level-2">
-								<li class="list-detail">computer <span class="unread-count">23</span></li>
-								<li class="list-detail">psycology <span class="unread-count">123</span></li>
-								<li class="list-detail">javascript <span class="unread-count">3</span></li>
+					<div class="section">
+						<div class="scroll_cats" style="overflow:auto;">
+							<ul class="user-cats cat-list" id="user-cat-list">
+								<li class="list-detail title level-1">
+									computer
+									<span class="unread-count">23</span>
+								</li>
+								<li class="list-detail title level-1">
+									psycology
+									<span class="unread-count">123</span>
+								</li>
+								<li class="list-detail title level-1">
+									javascript
+									<span class="unread-count">3</span>
+								</li>
+								<li class="list-detail title level-1">LIST13</li>
+								<li class="list-detail title level-1">LIST14</li>
+								<li class="list-detail title level-1">LIST15</li>
+								<li class="list-detail title level-1">LIST13</li>
+								<li class="list-detail title level-1">LIST14</li>
+								<li class="list-detail title level-1">LIST15</li>
+								<li class="list-detail title level-1">LIST13</li>
+								<li class="list-detail title level-1">LIST14</li>
+								<li class="list-detail title level-1">LIST15</li>
 							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="column-actions">
+					<ul class="action-list">
+						<li class="action">
+							<a href="#">
+								<i class="icon-share"></i>
+							</a>
 						</li>
-						<li class="catelog level-1"><i class="icon-angle-right"></i> CATELOG22222
-							<ul class="level-2">
-								<li class="list-detail">LIST4</li>
-								<li class="list-detail">LIST5</li>
-								<li class="list-detail">LIST6</li>
-							</ul>
+						<li class="action">
+							<a href="#">查看全部</a>
 						</li>
-						<li class="catelog level-1"><i class="icon-angle-right"></i> CATELOG3333333
-							<ul class="level-2">
-								<li class="list-detail">LIST7</li>
-								<li class="list-detail">LIST8</li>
-								<li class="list-detail">LIST9</li>
-							</ul>
+						<li class="action">
+							<a href="#">查看未读</a>
 						</li>
-						<li class="catelog level-1"><i class="icon-angle-right"></i> CATELOG4444
-							<ul class="level-2">
-								<li class="list-detail">LIST10</li>
-								<li class="list-detail">LIST11</li>
-								<li class="list-detail">LIST12</li>
-							</ul>
-						</li>
-						<li class="catelog level-1"><i class="icon-angle-right"></i> CATELOG555555
-							<ul class="level-2">
-								<li class="list-detail">LIST13</li>
-								<li class="list-detail">LIST14</li>
-								<li class="list-detail">LIST15</li>
-							</ul>
-						</li> -->
-						<li class="list-detail title level-1">computer <span class="unread-count">23</span></li>
-						<li class="list-detail title level-1">psycology <span class="unread-count">123</span></li>
-						<li class="list-detail title level-1">javascript <span class="unread-count">3</span></li>
-						<li class="list-detail title level-1">LIST13</li>
-						<li class="list-detail title level-1">LIST14</li>
-						<li class="list-detail title level-1">LIST15</li>
-						<li class="list-detail title level-1">LIST13</li>
-						<li class="list-detail title level-1">LIST14</li>
-						<li class="list-detail title level-1">LIST15</li>
-						<li class="list-detail title level-1">LIST13</li>
-						<li class="list-detail title level-1">LIST14</li>
-						<li class="list-detail title level-1">LIST15</li>
 					</ul>
 				</div>
 			</div>
 			<div id="list" class="content-column">
 				<div class="entries section sub-entry">
 					<div class="scroll_content">
-						<!-- <ul class="entry-list"
-						                    data-bind="template: { name: 'tpl-entry-head', foreach: entryList }">
-							           <script type="text/html" id="tpl-entry-head">
-							                        <li>
-							                            <h2 data-bind="text:title">
-							                            </h2>
-							                        </li>
-							                    </script>
-							                </ul> -->
 						<ul class="entry-list">
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE2</a></h2>
+									<h2>
+										<a href="#">TITLE2</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 							<li class="title level-1">
 								<div class="inner">
-									<h2><a href="#">TITLE1</a></h2>
+									<h2>
+										<a href="#">TITLE1</a>
+									</h2>
 									<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
 								</div>
-								<span class="mark-read"><i class="icon-ok"></i></span>
-								<span class="mark-star"><i class="icon-heart"></i></span>
+								<span class="mark-read">
+									<i class="icon-ok"></i>
+								</span>
+								<span class="mark-star">
+									<i class="icon-heart"></i>
+								</span>
 							</li>
 						</ul>
 					</div>
 				</div>
 				<div class="column-actions">
-	                <ul class="action-list">
-	                    <li class="all-posts active"><i class="icon-circle"></i></li>
-	                    <li class="unread-posts"><i class="icon-circle-blank"></i></li>
-	                    <li class="star-posts"><i class="icon-heart"></i></li>
-	                </ul>
-	            </div>
+					<ul class="action-list">
+						<li class="all-posts active">
+							<i class="icon-circle"></i>
+						</li>
+						<li class="unread-posts">
+							<i class="icon-circle-blank"></i>
+						</li>
+						<li class="star-posts">
+							<i class="icon-heart"></i>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div id="entry" class="content-column">
 				<div class="sub-entry" id="entry-content">
 					<h3>TITLE XXXXX</h3>
 					<img src="http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png" />
-					<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+					<p>
+						xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+					</p>
 				</div>
 				<div class="column-actions">
-	                <ul class="action-list">
-	                    <li class="toggle-read"><i class="icon-circle"></i></li>
-	                    <li class="toggle-star"><i class="icon-heart-empty"></i></li>
-	                    <li class="prev"><i class="icon-chevron-up"></i></li>
-	                    <li class="next"><i class="icon-chevron-down"></i></li>
-	                </ul>
-	            </div>
+					<ul class="action-list">
+						<li class="toggle-read">
+							<i class="icon-circle"></i>
+						</li>
+						<li class="toggle-star">
+							<i class="icon-heart-empty"></i>
+						</li>
+						<li class="prev">
+							<i class="icon-chevron-up"></i>
+						</li>
+						<li class="next">
+							<i class="icon-chevron-down"></i>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="http://a.tbcdn.cn/s/kissy/1.3.0/seed-min.js"></script>
-	<!--<script type="text/javascript" src="./assets/iscroll.js"></script>-->
-	<!--<script type="text/javascript" src="assets/index.js"></script>-->
-	<script type="text/javascript" src="./assets/mobile.js"></script>
-	<!--<script type="text/javascript">
-	    (function (S) {
-	        S.use('reader')
-	    })(KISSY);
-	</script>-->
+	<script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy.js" charset="utf-8"></script>
+	<!--gaozhan-->
+	<script type="text/javascript" src="assets/index.js"></script>
+	<script type="text/javascript" src="assets/scroll.js"></script>
+	<!--gaozhan-->
+	<script type="text/javascript" src="assets/pad.js"></script>
+	<script type="text/javascript" src="assets/mobile.js"></script>
 	<script type="text/javascript">
-	    (function (S) {
-	        S.use('mobile')
-	    })(KISSY);
-	</script>
+    (function (S) {
+        /*S.use('reader');
+        if (S.UA.ipad) {
+            S.use('pad');
+        }
+        if (S.UA.iphone) {
+            S.later(function(){*/
+                S.use('mobile');
+            /*},1000)
+        }*/
+
+    })(KISSY);
+
+</script>
+
 </body>
 </html>
