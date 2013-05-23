@@ -279,6 +279,7 @@ KISSY.add('mobile', function(S, N, E) {
 						animateCollection.translateVertical(LIST_AREA.one('.column-actions'), -30);
 						animateCollection.translateHorizon(ENTRY_AREA.one('.sub-entry'), 0);
 						ENTRY_AREA.hide();
+						setReadStarTag();
 					}
 				});
 			}, 400);
