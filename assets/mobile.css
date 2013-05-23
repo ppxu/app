@@ -238,6 +238,9 @@ ul {
 #content #list li:hover {
 	color: #555;
 }
+#content #list li.read:hover {
+	color: #aaa;
+}
 #content #list li .inner {
 	width: 100%;
 	height: 100%;
