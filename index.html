@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="topcoat/release/css/topcoat-desktop.css"/>
     <link rel="stylesheet" href="assets/index.css"/>
 
-    <link rel="stylesheet" media="(width:1024px)" href="assets/pad.css">
+    <link rel="stylesheet" media="(min-width:480px) and (max-width:1024px)" href="assets/pad.css">
     <link rel="stylesheet" media="(max-width:480px)" href="assets/mobile.css">
     <link rel="stylesheet" href="assets/font-awesome.css">
     <link rel="stylesheet" media="(min-width:1025px)" href="assets/desktop.css">
@@ -102,11 +102,9 @@
         if (S.UA.ipad) {
             S.use('pad');
         }
-        if (S.UA.iphone) {
-            S.later(function(){
-                S.use('mobile');
-            },1000)
-        }
+        S.later(function(){
+            S.use('mobile');
+        },1000)
 
     })(KISSY);
 

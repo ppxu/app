@@ -160,11 +160,7 @@ a,a:hover{
 .entry-list li.current{
     background:#e9eef4;
 }
-.entry-list p{
-    color: #727274;
-    height:18px;
-    overflow:hidden;
-}
+
 .entry-list span{
     color: #0083e8;
 }

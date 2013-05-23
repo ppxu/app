@@ -13,9 +13,11 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO, Node) {
         entryList = DOM.get('#list'),
         entryContent = DOM.get('#entry-content');
 
-    var UA = KISSY.UA;
+    var screenWidth = DOM.viewportWidth();
 
-    var isDesktop = !UA.ios;
+    var isDesktop = screenWidth >= 1024,
+        isPad = screenWidth > 480 && screenWidth < 1024,
+        isMobile = screenWidth <= 480;
 
 
     var renderList = function (list) {
@@ -117,6 +119,9 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO, Node) {
             DOM.attr(entryContent,'data-id',entry.id);
             DOM.attr(entryContent,'star',entry.is_stared);
             DOM.attr(entryContent,'unread',entry.is_unread);
+           if(isDesktop){
+                DOM.style(entryContent,{"min-height":DOM.viewportHeight()-44});
+             }
             var starIcon = DOM.get('i','.toggle-star');
             var readIcon = DOM.get('i','.toggle-read');
             if(entry.is_stared){
@@ -151,17 +156,6 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO, Node) {
 
             },JSONP);
 
-        },
-
-
-    // toggle entry type in view
-        toggleView = function () {
-
-        },
-
-
-        setAll = function () {
-
         };
 
 
@@ -176,8 +170,10 @@ KISSY.add('reader', function (S, DOM, Event, UA, IO, Node) {
 
         id = DOM.attr(DOM.get('a',target), 'data-id');
         DOM.addClass(target,"current");//gaozhan
-        DOM.removeClass(target,'unread');
-        DOM.addClass(target,'read');
+       if (!isMobile) {
+           DOM.removeClass(target, 'unread');
+           DOM.addClass(target, 'read');
+       }
         MC.fire('entry-list:click', {
             id: id
         });

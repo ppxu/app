@@ -23,7 +23,7 @@ KISSY.add('pad', function (S, DOM, Event,Node) {
             //œ‘ æµ⁄“ª∆¡
 
             DOM.css('#entry','width','0');
-            DOM.css('#list','width','64%');
+            DOM.css('#list','width','65%');
 
             S.later(function(){
                 DOM.css('#cats','display','block');
